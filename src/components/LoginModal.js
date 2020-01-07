@@ -20,7 +20,7 @@ const LoginModal= () => {
 
      firebase.auth().onAuthStateChanged(firebaseUser =>{
         if(firebaseUser){
-            if (typeof window !== `undefined`) window.location.replace(`/profile`)
+            if (typeof window !== `undefined`) window.location.replace(`/dashboard`)
             console.log("logged in", firebaseUser)
         }
         else{

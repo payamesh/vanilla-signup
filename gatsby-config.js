@@ -3,11 +3,12 @@
  *
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
+const path = require(`path`)
 
 module.exports = {
   siteMetadata: {
-    title: `My Gatsby Site`,
-    description: `Just the best`,
+    title: `Vanilla Signup`,
+    description: `EzClap`,
     },
   plugins: [
     {
@@ -26,6 +27,15 @@ module.exports = {
         socialLogins: ["google"],
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `img`,
+        path: path.join(__dirname, `src`, `img`),
+      },
+    },
     `gatsby-plugin-theme-ui`,
+    `gatsby-transformer-sharp`, 
+    `gatsby-plugin-sharp`
   ],
 }

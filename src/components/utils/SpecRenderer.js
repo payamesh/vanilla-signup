@@ -3,7 +3,7 @@
 import { jsx } from 'theme-ui';
 import {useState, useCallback} from 'react';
 import {PropTypes} from 'prop-types'
-import { auth, useAuth,firestore } from "gatsby-theme-firebase";
+import { firestore } from "gatsby-theme-firebase";
 
 
 const SpecRenderer = ({profile}) => {
@@ -12,12 +12,14 @@ const SpecRenderer = ({profile}) => {
 const [name, setName] = useState('');
 const [vocation, setVocation] = useState('');
 const [spec, setSpec] = useState('');
-      const specList = (vocation)=>{ switch (vocation) {
+      const specList = (vocation)=>{ 
+        switch (vocation) {
         case 'Priest':
             return( 
            <div>
            <label>Spec</label>
            <select onChange={event => setSpec(event.target.value)}>
+           <option value="null">Choose your spec</option>
             <option>Holy</option>
             <option>Discipline</option>
             <option>Shadow</option>
@@ -29,6 +31,7 @@ const [spec, setSpec] = useState('');
            <div>
            <label>Spec</label>
            <select onChange={event => setSpec(event.target.value)}>
+           <option value="null">Choose your spec</option>
             <option>Protection</option>
             <option>Fury</option>
             <option>Arms</option>
@@ -40,6 +43,7 @@ const [spec, setSpec] = useState('');
            <div>
            <label>Spec</label>
            <select onChange={event => setSpec(event.target.value)}>
+           <option value="null">Choose your spec</option>
             <option>Feral</option>
             <option>Balance</option>
             <option>Restoration</option>
@@ -51,6 +55,7 @@ const [spec, setSpec] = useState('');
            <div>
            <label>Spec</label>
            <select onChange={event => setSpec(event.target.value)}>
+           <option value="null">Choose your spec</option>
             <option>Enhancement</option>
             <option>Restoration</option>
             <option>Elemental</option>
@@ -62,6 +67,7 @@ const [spec, setSpec] = useState('');
            <div>
            <label>Spec</label>
            <select onChange={event => setSpec(event.target.value)}>
+           <option value="null">Choose your spec</option>
             <option>Holy</option>
             <option>Retribution</option>
             <option>Protection</option>
@@ -73,6 +79,7 @@ const [spec, setSpec] = useState('');
            <div>
            <label>Spec</label>
            <select onChange={event => setSpec(event.target.value)}>
+           <option value="null">Choose your spec</option>
             <option>Destruction</option>
             <option>Demonology</option>
             <option>Affliction</option>
@@ -84,6 +91,7 @@ const [spec, setSpec] = useState('');
            <div>
            <label>Spec</label>
            <select onChange={event => setSpec(event.target.value)}>
+           <option value="null">Choose your spec</option>
             <option>Arcane</option>
             <option>Frost</option>
             <option>Fire</option>
@@ -95,6 +103,7 @@ const [spec, setSpec] = useState('');
            <div>
            <label>Spec</label>
            <select onChange={event => setSpec(event.target.value)}>
+           <option value="null">Choose your spec</option>
             <option>Subtlety</option>
             <option>Combat</option>
             <option>Assasination</option>
@@ -106,6 +115,7 @@ const [spec, setSpec] = useState('');
            <div>
            <label>Spec</label>
            <select onChange={event => setSpec(event.target.value)}>
+           <option value="null">Choose your spec</option>
             <option>Marksmanship</option>
             <option>Beast Mastery</option>
             <option>Survival</option>
@@ -149,6 +159,7 @@ const [spec, setSpec] = useState('');
             }
         })
     },[name,vocation,spec])
+   
     return(
         <div>
 
@@ -162,7 +173,13 @@ const [spec, setSpec] = useState('');
         </div>
         <input type="submit" onClick={(e) => {
                 e.preventDefault()
-                handleSubmit(name,vocation,spec);
+                if(name == "" || vocation== "" || spec==""){
+                    console.log("Fill out the whole form")
+
+                }else{
+
+                    handleSubmit(name,vocation,spec);
+                }
         }}/>
         </div>
     )
