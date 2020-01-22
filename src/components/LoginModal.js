@@ -13,10 +13,6 @@ const LoginModal= () => {
             const promise = auth.signInWithEmailAndPassword(email,password)
             promise.catch(e=> console.log(e.message))
         },[email,password])
-    const handleSignup = useCallback((email, password) =>{
-            const promise = auth.createUserWithEmailAndPassword(email,password)
-            promise.catch(e=> console.log(e.message))
-        },[email,password])
 
      firebase.auth().onAuthStateChanged(firebaseUser =>{
         if(firebaseUser){
@@ -28,26 +24,16 @@ const LoginModal= () => {
         }
      })   
     return(
-        <div>
-
-            <input type="text" onBlur={event => setEmail(event.target.value)}/>
-            <input type="password" onBlur={event => setPassword(event.target.value)} />
-
-
+        <div sx={{width:'50vw'}}>
+            <input sx={{marginX:'15px'}} type="username" placeholder="username"  onBlur={event => setEmail(event.target.value)}/>
+            <input sx={{marginX:'15px'}} type="password" placeholder="password" onBlur={event => setPassword(event.target.value)} />
 
             <button onClick={(e)=>{
                 e.preventDefault();
                 handleLogin(email,password)
                 }} 
                     sx={{backgroundColor:'blue'}}>Log in</button>
-            <button onClick={(e)=>{
-                e.preventDefault();
 
-                handleSignup(email,password)
-                }}>Sign up</button>
-
-            {isLoggedIn && <button onClick={() => auth.signOut()}>Sign Out</button>}
-            <button sx={{display:'none'}}>LogOut</button>
         </div>
     )
 }

@@ -38,7 +38,7 @@ const CharacterList = () => {
       {isLoggedIn && profile && (
         <div>
           <h2> Your Characters </h2>
-          <ul>
+
             {characters.map(c => {
               let classColor = ""
               switch (c.class) {
@@ -79,32 +79,38 @@ const CharacterList = () => {
                   break
               }
               return (
-                <div
+                <div key={c.name}>
+                <select
                   sx={{
                     margin: "40px",
                   }}
-                  key={c.name}
                 >
-                  <li>{c.name}</li>
-                  <li
-                    sx={{
+                  <option  sx={{
                       color: classColor,
-                    }}
-                  >
+                    }}>{c.name}</option>
+                  <option>
                     {c.class}
-                  </li>
-                  <li> {c.talents} </li>
+                  </option>
+                  <option> {c.talents} </option>
+                </select>
                   <button sx={{
                      ':hover':{
                       cursor:'pointer'
                   }
-                  }} onClick={() => DeleteCharacter(c.name)}>
+                  }} onClick={() => {
+                    DeleteCharacter(c.name)
+                    setTimeout(() => {
+                      window.location.reload();
+                      
+                  }, 1500);
+                  }}>
                     Delete
                   </button>
-                </div>
+                  </div>
+
               )
             })}
-          </ul>
+
         </div>
       )}
     </div>

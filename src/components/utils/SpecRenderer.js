@@ -127,21 +127,21 @@ const [spec, setSpec] = useState('');
     }}
     const classList = 
     <div>
-<label>Class</label>
-    <select onChange={event => {
-        setVocation(event.target.value)
-        }}>
-        <option>Choose a class</option>
-        <option>Warrior</option>
-        <option>Druid</option>
-        <option>Shaman</option>
-        <option>Paladin</option>
-        <option>Priest</option>
-        <option>Warlock</option>
-        <option>Mage</option>
-        <option>Rogue</option>
-        <option>Hunter</option>
-    </select>     
+        <label>Class</label>
+        <select onChange={event => {
+            setVocation(event.target.value)
+            }}>
+            <option>Choose a class</option>
+            <option>Warrior</option>
+            <option>Druid</option>
+            <option>Shaman</option>
+            <option>Paladin</option>
+            <option>Priest</option>
+            <option>Warlock</option>
+            <option>Mage</option>
+            <option>Rogue</option>
+            <option>Hunter</option>
+        </select>     
     </div>
     const handleSubmit = useCallback((name,vocation,spec) => {
         firestore.collection('profile').doc(name)
@@ -179,6 +179,11 @@ const [spec, setSpec] = useState('');
                 }else{
 
                     handleSubmit(name,vocation,spec);
+                    setTimeout(() => {
+                        window.location.reload();
+                        
+                    }, 1500);
+
                 }
         }}/>
         </div>
