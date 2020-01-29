@@ -3,11 +3,15 @@
 import { jsx } from "theme-ui"
 import { useAuth, firestore, firebase } from "gatsby-theme-firebase"
 import { useEffect, useState } from "react"
+import { PropTypes } from "prop-types"
 import DeleteCharacter from "./utils/DeleteCharacter"
+import SecondaryButton from "../components/SecondaryButton"
 
-const CharacterList = () => {
+const CharacterList = ({ selectedChar, setSelectedChar, showDelete }) => {
   const [characters, setCharacters] = useState([])
+
   const { isLoading, isLoggedIn, profile } = useAuth()
+
   const [currentUser, setCurrentUser] = useState("")
   let charList = []
   firebase.auth().onAuthStateChanged(function(user) {
@@ -34,87 +38,33 @@ const CharacterList = () => {
 
   return (
     <div>
-      {isLoading && <p> Loading.. </p>}
-      {isLoggedIn && profile && (
-        <div>
-          <h2> Your Characters </h2>
-
-            {characters.map(c => {
-              let classColor = ""
-              switch (c.class) {
-                case "Priest":
-                  classColor = "white"
-                  break
-
-                case "Warrior":
-                  classColor = "brown"
-                  break
-                case "Druid":
-                  classColor = "brown"
-                  break
-
-                case "Shaman":
-                  classColor = "pink"
-                  break
-
-                case "Paladin":
-                  classColor = "pink"
-                  break
-                case "Warlock":
-                  classColor = "purple"
-                  break
-                case "Mage":
-                  classColor = "blue"
-                  break
-
-                case "Rogue":
-                  classColor = "yellow"
-                  break
-
-                case "Hunter":
-                  classColor = "green"
-                  break
-
-                default:
-                  break
-              }
-              return (
-                <div key={c.name}>
-                <select
-                  sx={{
-                    margin: "40px",
-                  }}
-                >
-                  <option  sx={{
-                      color: classColor,
-                    }}>{c.name}</option>
-                  <option>
-                    {c.class}
-                  </option>
-                  <option> {c.talents} </option>
-                </select>
-                  <button sx={{
-                     ':hover':{
-                      cursor:'pointer'
-                  }
-                  }} onClick={() => {
-                    DeleteCharacter(c.name)
-                    setTimeout(() => {
-                      window.location.reload();
-                      
-                  }, 1500);
-                  }}>
-                    Delete
-                  </button>
-                  </div>
-
-              )
-            })}
-
-        </div>
-      )}
+      <select onChange={event => setSelectedChar(event.target.value)}>
+        <option>View your characters</option>
+        {characters.map(c => {
+          return <option key={c.name}>{c.name}</option>
+        })}
+      </select>
+      <SecondaryButton
+        style={{
+          display: showDelete ? "block" : "none",
+          ":hover": {
+            cursor: "pointer",
+          },
+        }}
+        onClick={() => {
+          DeleteCharacter(selectedChar)
+          setTimeout(() => {
+            window.location.reload()
+          }, 1500)
+        }}
+      >
+        Delete Character
+      </SecondaryButton>
     </div>
   )
 }
-
+CharacterList.propTypes = {
+  showDelete: PropTypes.bool,
+  setSelectedChar: PropTypes.func,
+}
 export default CharacterList
