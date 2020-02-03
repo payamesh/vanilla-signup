@@ -7,8 +7,10 @@ const PrimaryButton = ({ children, onClick }) => {
   return (
     <button
       sx={{
+        width: "100%",
+        height: "100%",
         display: "inline-block",
-        padding: "0.3em 1.2em",
+        padding: "12px 12px",
         margin: "0 0.3em 0.3em 0",
         borderRadius: "2em",
         boxSizing: "border-box",
@@ -20,6 +22,10 @@ const PrimaryButton = ({ children, onClick }) => {
         textAlign: "center",
         transition: "all 0.2s",
         maxWidth: "200px",
+        outline: "none",
+        ":hover": {
+          cursor: "pointer",
+        },
       }}
       onClick={onClick}
     >

@@ -66,11 +66,11 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
   return (
     <div
       sx={{
-        width: "90vw",
+        width: ["100vw", "90vw"],
         height: "auto",
         margin: "0 auto",
         textAlign: "center",
-        marginTop: "150px",
+        marginTop: ["50px", "150px"],
       }}
     >
       <h2>UPCOMING RAIDS</h2>
@@ -89,8 +89,7 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
         return (
           <BackgroundImage
             style={{
-              height: `50vh`,
-              width: `100%`,
+              width: ["100vw", `100%`],
               backgroundColor: `transparent`,
               backgroundSize: `cover`,
               backgroundPosition: `center center`,
@@ -104,7 +103,7 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
           >
             <div
               sx={{
-                height: "100%",
+                height: ["80vh", `50vh`],
                 width: "100%",
                 backgroundColor: "rgba(16,26,52,.7)",
                 zIndex: -5,
@@ -117,11 +116,26 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
               />
               <AttendeeList attendees={event.attendees} />
 
-              <CharacterList
-                setSelectedChar={setSelectedChar}
-                showDelete={false}
-              />
-              <div sx={{ margin: "10px 0" }}>
+              <div
+                sx={{
+                  margin: "10px auto",
+                  width: "80%",
+                  position: ["absolute", "none"],
+                  bottom: "0",
+                  transform: "translateX(-50%)",
+                  left: "50%",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  "&>*": {
+                    marginX: "20px",
+                  },
+                }}
+              >
+                <CharacterList
+                  setSelectedChar={setSelectedChar}
+                  showDelete={false}
+                />
                 <PrimaryButton
                   onClick={() => signToRaid(selectedChar, event.eventID)}
                 >

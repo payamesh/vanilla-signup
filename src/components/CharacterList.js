@@ -9,10 +9,10 @@ import SecondaryButton from "../components/SecondaryButton"
 
 const CharacterList = ({ selectedChar, setSelectedChar, showDelete }) => {
   const [characters, setCharacters] = useState([])
-
-  const { isLoading, isLoggedIn, profile } = useAuth()
-
+  const { profile } = useAuth()
   const [currentUser, setCurrentUser] = useState("")
+  const [successMsg, setSuccessMsg] = useState("")
+  const [errorMsg, setErrorMsg] = useState("")
   let charList = []
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -38,10 +38,24 @@ const CharacterList = ({ selectedChar, setSelectedChar, showDelete }) => {
 
   return (
     <div>
-      <select onChange={event => setSelectedChar(event.target.value)}>
+      <select
+        sx={{ height: "40px", backgroundColor: "#4eb5f1", color: "#fff" }}
+        onChange={event => setSelectedChar(event.target.value)}
+      >
         <option>View your characters</option>
         {characters.map(c => {
-          return <option key={c.name}>{c.name}</option>
+          return (
+            <option
+              sx={{
+                height: "40px",
+                backgroundColor: "black",
+                color: "#fff",
+              }}
+              key={c.name}
+            >
+              {c.name}
+            </option>
+          )
         })}
       </select>
       <SecondaryButton
@@ -52,14 +66,24 @@ const CharacterList = ({ selectedChar, setSelectedChar, showDelete }) => {
           },
         }}
         onClick={() => {
-          DeleteCharacter(selectedChar)
-          setTimeout(() => {
-            window.location.reload()
-          }, 1500)
+          if (typeof selectedChar == "string") {
+            DeleteCharacter(selectedChar)
+            setSuccessMsg("Character successfully deleted.")
+            setTimeout(() => {
+              window.location.reload()
+            }, 1500)
+          } else {
+            setErrorMsg("Choose a character to delete.")
+            setTimeout(() => {
+              setErrorMsg("")
+            }, 3000)
+          }
         }}
       >
         Delete Character
       </SecondaryButton>
+      <p sx={{ color: "#bb2124" }}>{errorMsg}</p>
+      <p sx={{ color: "#22bb33" }}>{successMsg}</p>
     </div>
   )
 }

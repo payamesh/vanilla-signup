@@ -42,7 +42,7 @@ const Dashboard = () => {
   return (
     <div
       sx={{
-        color: "white",
+        color: ["white"],
         html: {
           boxSizing: "border-box",
         },
@@ -50,7 +50,7 @@ const Dashboard = () => {
     >
       <div
         style={{
-          height: `200vh`,
+          height: `auto`,
           width: `100vw`,
           backgroundColor: `transparent`,
           backgroundSize: `cover`,
@@ -67,14 +67,14 @@ const Dashboard = () => {
           sx={{
             height: "100%",
             width: "100%",
-            backgroundColor: "rgba(16,26,52,.5)",
+            backgroundColor: "rgba(16,26,52,1)",
             zIndex: -5,
           }}
         >
           {isLoggedIn && (
             <div
               sx={{
-                paddingX: "150px",
+                paddingX: ['20px',"150px"],
                 zIndex: 1,
               }}
             >
@@ -92,23 +92,25 @@ const Dashboard = () => {
               >
                 <form
                   sx={{
-                    width: "50%",
-                    margin: "auto auto",
+                    width: ['100%',"50%"],
+                    margin: "0 auto",
                     textAlign: "center",
                     "& > div": { marginY: "20px" },
                   }}
                   method="POST"
                 >
-                  <PrimaryButton
-                    onClick={e => {
-                      e.preventDefault()
-                      onToggleCharacter()
-                    }}
-                  >
-                    {createCharacter
-                      ? "Hide character creation"
-                      : "Create a character"}
-                  </PrimaryButton>
+                  <div sx={{ height: "20%", width: "100%" }}>
+                    <PrimaryButton
+                      onClick={e => {
+                        e.preventDefault()
+                        onToggleCharacter()
+                      }}
+                    >
+                      {createCharacter
+                        ? "Hide character creation"
+                        : "Create a character"}
+                    </PrimaryButton>
+                  </div>
                   <SpecRenderer
                     createCharacter={createCharacter}
                     profile={profile}
@@ -117,6 +119,7 @@ const Dashboard = () => {
                 <div
                   sx={{
                     width: "50%",
+                    height: "30vh",
                     margin: "auto auto",
                     textAlign: "center",
                   }}

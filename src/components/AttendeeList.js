@@ -52,9 +52,12 @@ const AttendeeList = ({ attendees }) => {
       <div>
         {classToRender.map(players => {
           return (
-            <li sx={{ listStyleType: "none" }} key={players.addedChar.name}>
-              {players.addedChar.name} -{players.addedChar.talents}
-            </li>
+            <div key={players.addedChar.name}>
+              <li sx={{ listStyleType: "none" }}>
+                {players.addedChar.name} -{players.addedChar.talents}
+              </li>
+              <hr sx={{ marginY: "2px", borderWidth: "0.5px" }} />
+            </div>
           )
         })}
       </div>
@@ -64,9 +67,9 @@ const AttendeeList = ({ attendees }) => {
     <div
       sx={{
         width: "100%",
-        height: "30vh",
+        height: ["30vh"],
         display: "grid",
-        gridTemplateColumns: "repeat(8, 1fr)",
+        gridTemplateColumns: ["repeat(4, 1fr)", "repeat(8, 1fr)"],
         "&>div>h4": {
           textShadow: "0px 0px 10px #fff",
         },

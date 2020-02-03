@@ -9,6 +9,8 @@ const SpecRenderer = ({ profile, createCharacter }) => {
   const [name, setName] = useState("")
   const [vocation, setVocation] = useState("")
   const [spec, setSpec] = useState("")
+  const [errorMsg, setErrorMsg] = useState("")
+  const [successMsg, setSuccessMsg] = useState("")
   const specList = vocation => {
     switch (vocation) {
       case "Priest":
@@ -128,6 +130,7 @@ const SpecRenderer = ({ profile, createCharacter }) => {
     <div>
       <label>Class</label>
       <select
+        sx={{ color: "#fff" }}
         onChange={event => {
           setVocation(event.target.value)
         }}
@@ -164,10 +167,16 @@ const SpecRenderer = ({ profile, createCharacter }) => {
                 uid: profile.uid,
               })
               .then(() => {
-                console.log("Character added.")
+                setSuccessMsg("Character added.")
+                setTimeout(() => {
+                  setSuccessMsg("")
+                }, 3000)
               })
           } else {
-            console.log("this name already exists")
+            setErrorMsg("this name already exists")
+            setTimeout(() => {
+              setErrorMsg("")
+            }, 3000)
           }
         })
     },
@@ -175,7 +184,7 @@ const SpecRenderer = ({ profile, createCharacter }) => {
   )
 
   return (
-    <div sx={{ display: createCharacter ? "block" : "none" }}>
+    <div sx={{ opacity: createCharacter ? 1 : 0 }}>
       <div>
         <label>Character name</label>
         <input onChange={event => setName(event.target.value)} />
@@ -185,19 +194,26 @@ const SpecRenderer = ({ profile, createCharacter }) => {
         {specList(vocation)}
       </div>
       <input
+        sx={{ color: "#fff" }}
         type="submit"
         onClick={e => {
           e.preventDefault()
           if (name == "" || vocation == "" || spec == "") {
-            console.log("Fill out the whole form")
+            setErrorMsg("Please fill out the whole form")
+            setTimeout(() => {
+              setErrorMsg("")
+            }, 3000)
           } else {
             handleSubmit(name, vocation, spec)
+            setSuccessMsg("Character created!")
             setTimeout(() => {
               window.location.reload()
-            }, 1500)
+            }, 3000)
           }
         }}
       />
+      <p sx={{ color: "#bb2124" }}>{errorMsg}</p>
+      <p sx={{ color: "#22bb33" }}>{successMsg}</p>
     </div>
   )
 }
