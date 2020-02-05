@@ -4,6 +4,7 @@ import { jsx } from "theme-ui"
 import { useState, useCallback } from "react"
 import { PropTypes } from "prop-types"
 import { firestore } from "gatsby-theme-firebase"
+import PrimaryButton from "../PrimaryButton"
 
 const SpecRenderer = ({ profile, createCharacter }) => {
   const [name, setName] = useState("")
@@ -16,7 +17,6 @@ const SpecRenderer = ({ profile, createCharacter }) => {
       case "Priest":
         return (
           <div>
-            <label>Spec</label>
             <select onChange={event => setSpec(event.target.value)}>
               <option value="null">Choose your spec</option>
               <option>Holy</option>
@@ -28,7 +28,6 @@ const SpecRenderer = ({ profile, createCharacter }) => {
       case "Warrior":
         return (
           <div>
-            <label>Spec</label>
             <select onChange={event => setSpec(event.target.value)}>
               <option value="null">Choose your spec</option>
               <option>Protection</option>
@@ -40,7 +39,6 @@ const SpecRenderer = ({ profile, createCharacter }) => {
       case "Druid":
         return (
           <div>
-            <label>Spec</label>
             <select onChange={event => setSpec(event.target.value)}>
               <option value="null">Choose your spec</option>
               <option>Feral</option>
@@ -52,7 +50,6 @@ const SpecRenderer = ({ profile, createCharacter }) => {
       case "Shaman":
         return (
           <div>
-            <label>Spec</label>
             <select onChange={event => setSpec(event.target.value)}>
               <option value="null">Choose your spec</option>
               <option>Enhancement</option>
@@ -64,7 +61,6 @@ const SpecRenderer = ({ profile, createCharacter }) => {
       case "Paladin":
         return (
           <div>
-            <label>Spec</label>
             <select onChange={event => setSpec(event.target.value)}>
               <option value="null">Choose your spec</option>
               <option>Holy</option>
@@ -76,7 +72,6 @@ const SpecRenderer = ({ profile, createCharacter }) => {
       case "Warlock":
         return (
           <div>
-            <label>Spec</label>
             <select onChange={event => setSpec(event.target.value)}>
               <option value="null">Choose your spec</option>
               <option>Destruction</option>
@@ -88,7 +83,6 @@ const SpecRenderer = ({ profile, createCharacter }) => {
       case "Mage":
         return (
           <div>
-            <label>Spec</label>
             <select onChange={event => setSpec(event.target.value)}>
               <option value="null">Choose your spec</option>
               <option>Arcane</option>
@@ -100,7 +94,6 @@ const SpecRenderer = ({ profile, createCharacter }) => {
       case "Rogue":
         return (
           <div>
-            <label>Spec</label>
             <select onChange={event => setSpec(event.target.value)}>
               <option value="null">Choose your spec</option>
               <option>Subtlety</option>
@@ -112,7 +105,6 @@ const SpecRenderer = ({ profile, createCharacter }) => {
       case "Hunter":
         return (
           <div>
-            <label>Spec</label>
             <select onChange={event => setSpec(event.target.value)}>
               <option value="null">Choose your spec</option>
               <option>Marksmanship</option>
@@ -128,9 +120,17 @@ const SpecRenderer = ({ profile, createCharacter }) => {
   }
   const classList = (
     <div>
-      <label>Class</label>
       <select
-        sx={{ color: "#fff" }}
+        sx={{
+          backgroundColor: "rgba(16,26,52,.7)",
+          color: "#fff",
+          width: "auto",
+          height: "30px",
+          fontSize: "15px",
+          border: "1px solid white",
+          marginY: "10px",
+          textAlign: "center",
+        }}
         onChange={event => {
           setVocation(event.target.value)
         }}
@@ -186,32 +186,60 @@ const SpecRenderer = ({ profile, createCharacter }) => {
   return (
     <div sx={{ opacity: createCharacter ? 1 : 0 }}>
       <div>
-        <label>Character name</label>
-        <input onChange={event => setName(event.target.value)} />
+
+
+        <input
+          placeholder="Character name.."
+          sx={{
+            height: "30px",
+            borderRadius: "5%",
+            outline: "none",
+            border: "none",
+            padding:'5px'
+          }}
+          onChange={event => setName(event.target.value)}
+        />
       </div>
-      <div>
+      <div
+        sx={{
+          "&>div>select": {
+            backgroundColor: "rgba(16,26,52,.7)",
+            color: "#fff",
+            width: "auto",
+            height: "30px",
+            fontSize: "15px",
+            border: "1px solid white",
+            marginY: "5px",
+            textAlign: "center",
+          },
+        }}
+      >
         {classList}
         {specList(vocation)}
       </div>
-      <input
-        sx={{ color: "#fff" }}
-        type="submit"
-        onClick={e => {
-          e.preventDefault()
-          if (name == "" || vocation == "" || spec == "") {
-            setErrorMsg("Please fill out the whole form")
-            setTimeout(() => {
-              setErrorMsg("")
-            }, 3000)
-          } else {
-            handleSubmit(name, vocation, spec)
-            setSuccessMsg("Character created!")
-            setTimeout(() => {
-              window.location.reload()
-            }, 3000)
-          }
-        }}
-      />
+      <div sx={{ width: "40%", margin: "0 auto" }}>
+        <PrimaryButton
+          sx={{ color: "#fff" }}
+          type="submit"
+          onClick={e => {
+            e.preventDefault()
+            if (name == "" || vocation == "" || spec == "") {
+              setErrorMsg("Please fill out the whole form")
+              setTimeout(() => {
+                setErrorMsg("")
+              }, 3000)
+            } else {
+              handleSubmit(name, vocation, spec)
+              setSuccessMsg("Character created!")
+              setTimeout(() => {
+                window.location.reload()
+              }, 3000)
+            }
+          }}
+        >
+          Create
+        </PrimaryButton>
+      </div>
       <p sx={{ color: "#bb2124" }}>{errorMsg}</p>
       <p sx={{ color: "#22bb33" }}>{successMsg}</p>
     </div>

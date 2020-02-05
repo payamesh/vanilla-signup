@@ -5,18 +5,8 @@ import { auth, useAuth, firebase } from "gatsby-theme-firebase"
 import { useState, useCallback } from "react"
 import PrimaryButton from "./PrimaryButton"
 
-const LoginModal = () => {
+const FormModal = ({ myFunc, setEmail, setPassword, email, password }) => {
   const { isLoggedIn } = useAuth()
-  const [password, setPassword] = useState("")
-  const [email, setEmail] = useState("")
-
-  const handleLogin = useCallback(
-    (email, password) => {
-      const promise = auth.signInWithEmailAndPassword(email, password)
-      promise.catch(e => console.log(e.message))
-    },
-    [email, password]
-  )
 
   firebase.auth().onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
@@ -99,7 +89,7 @@ const LoginModal = () => {
             <PrimaryButton
               onClick={e => {
                 e.preventDefault()
-                handleLogin(email, password)
+                myFunc(email, password)
               }}
               sx={{ backgroundColor: "blue" }}
             >
@@ -112,4 +102,4 @@ const LoginModal = () => {
   )
 }
 
-export default LoginModal
+export default FormModal

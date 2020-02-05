@@ -74,7 +74,7 @@ const Dashboard = () => {
           {isLoggedIn && (
             <div
               sx={{
-                paddingX: ['20px',"150px"],
+                paddingX: ["20px", "150px"],
                 zIndex: 1,
               }}
             >
@@ -92,7 +92,7 @@ const Dashboard = () => {
               >
                 <form
                   sx={{
-                    width: ['100%',"50%"],
+                    width: ["100%", "50%"],
                     margin: "0 auto",
                     textAlign: "center",
                     "& > div": { marginY: "20px" },
@@ -132,7 +132,14 @@ const Dashboard = () => {
                   />
                 </div>
               </div>
-              <div sx={{ position: "absolute", top: "10px", right: "10px" }}>
+              <div
+                sx={{
+                  position: ["absolute"],
+                  top: ["100%", "10px"],
+                  right: ["50%", "10px"],
+                  transform: ["translateX(50%)", "none"],
+                }}
+              >
                 <SecondaryButton
                   style={{
                     ":hover": {
