@@ -25,28 +25,46 @@ const LandingPage = () => {
     },
     [email, password]
   )
+
+  const displayLoginForm = () => {
+    document.getElementById('loginForm').style.display = 'block';
+    document.getElementById('signupForm').style.display = 'none'
+  }
+
+  const displaySignupForm = () => {
+    document.getElementById('signupForm').style.display = 'block';
+    document.getElementById('loginForm').style.display = 'none'
+  }
+
   return (
     <div>
-      <div sx={{ textAlign: "center", fontSize: "25px" }}>
-        <h1>Welcome to EzClap's official website.</h1>
+      <div className="main-header">
+        <h1>&lt;EzClap&gt; Event Planner</h1>
       </div>
-      <div sx={{ width: "100vw", display: "flex" }}>
-        <FormModal
-          setPassword={setPassword}
-          setEmail={setEmail}
-          myFunc={handleLogin}
-          email={email}
-          password={password}
-        />
-        {/* <News/> */}
-      </div>
-      <FormModal
-        setPassword={setPassword}
-        setEmail={setEmail}
-        myFunc={handleSignup}
-        email={email}
-        password={password}
-      />
+      <div className="content-wrapper login-form">
+        <div className="tab-name" onClick={displayLoginForm}>Log In</div>
+        <div className="tab-name" onClick={displaySignupForm}>Sign Up</div>
+        <div id="loginForm">
+          <FormModal
+            setPassword={setPassword}
+            setEmail={setEmail}
+            myFunc={handleLogin}
+            email={email}
+            password={password}
+            btnText='Log In'
+          />
+        </div>
+        <div id="signupForm" sx={{ display: "none" }}>
+          <FormModal
+            setPassword={setPassword}
+            setEmail={setEmail}
+            myFunc={handleSignup}
+            email={email}
+            password={password}
+            btnText='Sign Up'
+          />
+        </div>
+       </div>
     </div>
   )
 }
