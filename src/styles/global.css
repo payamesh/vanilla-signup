@@ -1,0 +1,119 @@
+
+/* Global Settings */
+
+body {
+  user-select: none;
+  min-width: 275px;
+  overflow-x: auto;
+  margin: 0;
+  padding: 0;
+  background: #000;
+  font-family: "Segoe UI", "Roboto", Arial, sans-serif;
+}
+
+button:focus, input:focus {
+  outline: none;
+}
+
+
+/* Log In & Sign Up Page */
+
+.main-header h1 {
+  cursor: default;
+  margin: 30px 5px;
+  color: #ccc;
+  text-align: center;
+  font-size: 40px;
+  letter-spacing: .03em;
+  transition: .3s;
+}
+
+@media (max-width: 767px) {
+  .main-header h1 {
+    margin: 20px 5px;
+    font-size: 26px;
+  }
+}
+
+.content-wrapper {
+  width: 60vw;
+  max-width: 800px;
+  padding: 0 20vw;
+  margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+  .content-wrapper {
+    width: calc(100% - 40px);
+    padding: 0 20px;
+  }
+}
+
+.login-form {
+  margin-top: 25vh;
+  transition: .3s;
+}
+
+@media (max-width: 767px) {
+  .login-form {
+    margin-top: 50px;
+  }
+}
+
+.tab-name {
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 10px;
+  padding: 10px 30px;
+  background: #222;
+  color: #aaa;
+  font-size: 26px;
+  transition: .3s;
+}
+
+.tab-name:hover {
+  color: lightyellow;
+}
+
+@media (max-width: 767px) {
+  .tab-name {
+    margin-right: 5px;
+    font-size: 20px;
+    padding: 8px 15px;
+  }
+}
+
+.form-modal {
+  font-size: 16px;
+  background: #333;
+}
+
+.form-modal input {
+  margin: 10px;
+  padding: 10px;
+  font-size: 16px;
+  letter-spacing: .03em;
+  transition: .3s;
+}
+
+@media (max-width: 767px) {
+  .form-modal input {
+    margin: 8px;
+    padding: 5px 8px;
+    font-size: 16px;
+  }
+}
+
+.primary-button {
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 20px;
+}
+
+@media (max-width: 767px) {
+  .primary-button {
+    padding: 8px 10px;
+    font-size: 16px;
+  }
+}
