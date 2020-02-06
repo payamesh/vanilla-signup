@@ -64,11 +64,9 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
       })
   }, [])
   return (
-    <div
+    <div className="content-wrapper-wide"
       sx={{
-        width: ["100vw", "90vw"],
-        height: "auto",
-        margin: "0 auto",
+        
         textAlign: "center",
         marginTop: ["50px", "150px"],
       }}

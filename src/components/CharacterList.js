@@ -5,6 +5,7 @@ import { useAuth, firestore, firebase } from "gatsby-theme-firebase"
 import { useEffect, useState } from "react"
 import { PropTypes } from "prop-types"
 import DeleteCharacter from "./utils/DeleteCharacter"
+import PrimaryButton from "./PrimaryButton"
 import SecondaryButton from "../components/SecondaryButton"
 
 const CharacterList = ({ selectedChar, setSelectedChar, showDelete }) => {
@@ -36,54 +37,38 @@ const CharacterList = ({ selectedChar, setSelectedChar, showDelete }) => {
       })
   }, [profile])
 
+  const updateCharacter = () => {
+    console.log('clicky-clicky update')
+  }
+
+  const removeCharacter = () => {
+    console.log('clicky-clicky remove')
+  }
+
+
+
   return (
     <div>
-      <select
-        sx={{ height: "40px", backgroundColor: "#4eb5f1", color: "#fff" }}
-        onChange={event => setSelectedChar(event.target.value)}
-      >
-        <option>View your characters</option>
+      <table className="characters-table">
+        <tbody>
+        <tr>
+          <th>Name</th><th>Class</th><th>Role</th><th>Actions</th>
+        </tr>
         {characters.map(c => {
           return (
-            <option
-              sx={{
-                height: "40px",
-                backgroundColor: "black",
-                color: "#fff",
-              }}
-              key={c.name}
-            >
-              {c.name}
-            </option>
+            <tr sx={{color:"white"}}>
+              <td key={c.name} >{c.name}</td>
+              <td key={c.class} >{c.class}</td>
+              <td key={c.talents} >{c.talents}</td>
+              <td>
+                <PrimaryButton onClick={() => updateCharacter()}>Edit</PrimaryButton>
+                <SecondaryButton onClick={() => removeCharacter()}>Delete</SecondaryButton>
+               </td>
+            </tr>
           )
         })}
-      </select>
-      <SecondaryButton
-        style={{
-          display: showDelete ? "block" : "none",
-          ":hover": {
-            cursor: "pointer",
-          },
-        }}
-        onClick={() => {
-          if (typeof selectedChar == "string") {
-            DeleteCharacter(selectedChar)
-            setSuccessMsg("Character successfully deleted.")
-            setTimeout(() => {
-              window.location.reload()
-            }, 1500)
-          } else {
-            setErrorMsg("Choose a character to delete.")
-            setTimeout(() => {
-              setErrorMsg("")
-            }, 3000)
-          }
-        }}
-      >
-        Delete Character
-      </SecondaryButton>
-      <p sx={{ color: "#bb2124" }}>{errorMsg}</p>
-      <p sx={{ color: "#22bb33" }}>{successMsg}</p>
+        </tbody>
+      </table>
     </div>
   )
 }

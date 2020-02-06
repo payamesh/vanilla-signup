@@ -40,131 +40,74 @@ const Dashboard = () => {
   const ragImg = data.allImageSharp.nodes[1].fluid
   const nefImg = data.allImageSharp.nodes[0].fluid
   return (
-    <div
-      sx={{
-        color: ["white"],
-        html: {
-          boxSizing: "border-box",
-        },
-      }}
-    >
-      <div
-        style={{
-          height: `auto`,
-          width: `100vw`,
-          backgroundColor: `transparent`,
-          backgroundSize: `cover`,
-          backgroundPosition: `center center`,
-          display: `flex`,
-          alignItems: `center`,
-          position: "absolute",
-          backgroundAttachment: "fixed",
-          zIndex: -6,
-          margin: "-8px",
-        }}
-      >
-        <div
-          sx={{
-            height: "100%",
-            width: "100%",
-            backgroundColor: "rgba(16,26,52,1)",
-            zIndex: -5,
-          }}
-        >
-          {isLoggedIn && (
-            <div
-              sx={{
-                paddingX: ["20px", "150px"],
-                zIndex: 1,
-              }}
-            >
-              <h1 sx={{ textAlign: "center" }}>Welcome to EzClap</h1>
-              <div
-                sx={{
-                  display: "flex",
-                  alignContent: "space-between",
-                  flexWrap: "wrap",
-                  flexDirection: "row",
-                  width: "100%",
-                  margin: "10px auto",
-                  justifyContent: "space-between",
-                }}
-              >
-                <form
-                  sx={{
-                    width: ["100%", "50%"],
-                    margin: "0 auto",
-                    textAlign: "center",
-                    "& > div": { marginY: "20px" },
-                  }}
-                  method="POST"
-                >
-                  <div sx={{ height: "20%", width: "100%" }}>
-                    <PrimaryButton
-                      onClick={e => {
-                        e.preventDefault()
-                        onToggleCharacter()
-                      }}
-                    >
-                      {createCharacter
-                        ? "Hide character creation"
-                        : "Create a character"}
-                    </PrimaryButton>
-                  </div>
-                  <SpecRenderer
-                    createCharacter={createCharacter}
-                    profile={profile}
-                  />
-                </form>
-                <div
-                  sx={{
-                    width: "50%",
-                    height: "30vh",
-                    margin: "auto auto",
-                    textAlign: "center",
-                  }}
-                >
-                  <h3>Your characters</h3>
-                  <CharacterList
-                    setSelectedChar={setSelectedChar}
-                    selectedChar={selectedChar}
-                    showDelete={true}
-                  />
-                </div>
-              </div>
-              <div
-                sx={{
-                  position: ["absolute"],
-                  top: ["100%", "10px"],
-                  right: ["50%", "10px"],
-                  transform: ["translateX(50%)", "none"],
-                }}
-              >
-                <SecondaryButton
-                  style={{
-                    ":hover": {
-                      cursor: "pointer",
-                    },
-                  }}
-                  onClick={() => auth.signOut()}
-                >
-                  Sign Out
-                </SecondaryButton>
-              </div>
-            </div>
-          )}
-          <EventRender
-            selectedChar={selectedChar}
-            setSelectedChar={setSelectedChar}
-            ragImg={ragImg}
-            nefImg={nefImg}
-          />
+    <div>
+      <div className="main-header">
+        <h1>Dashboard</h1>
+      </div>
+      <div className="main-header">
+        <h2>Character Management</h2>
+      </div>
+      {isLoggedIn && (
+        <div className="content-wrapper" sx={{background: "#222"}}>
           <div>
-            {thisUser === "ThngE79hWaYEXYNnUxqdJ04H12i2" ? (
-              <CreateEvent />
-            ) : null}
+            <CharacterList
+              setSelectedChar={setSelectedChar}
+              selectedChar={selectedChar}
+              showDelete={true}
+            />
           </div>
-        </div>
+          <form 
+            className="character-add-form"
+            method="POST"
+          >
+            <div>
+              <PrimaryButton
+                onClick={e => {
+                  e.preventDefault()
+                  onToggleCharacter()
+                }}
+              > Add a character
+              </PrimaryButton>
+            </div>
+            <SpecRenderer
+              createCharacter={createCharacter}
+              profile={profile}
+            />
+          </form>
+          <div
+            sx={{
+              position: ["absolute"],
+              top: ["100%", "10px"],
+              right: ["50%", "10px"],
+              transform: ["translateX(50%)", "none"],
+            }}
+          >
+            <SecondaryButton
+              style={{
+                ":hover": {
+                  cursor: "pointer",
+                },
+              }}
+              onClick={() => auth.signOut()}
+            >
+              Sign Out
+            </SecondaryButton>
+          </div>
+         </div>
+      )}
+      <div className="main-header">
+        <h2>Upcoming Events</h2>
+      </div>
+      <EventRender
+        selectedChar={selectedChar}
+        setSelectedChar={setSelectedChar}
+        ragImg={ragImg}
+        nefImg={nefImg}
+      />
+      <div>
+        {thisUser === "ThngE79hWaYEXYNnUxqdJ04H12i2" ? (
+          <CreateEvent />
+        ) : null}
       </div>
     </div>
   )

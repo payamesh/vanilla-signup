@@ -11,7 +11,7 @@ body {
   font-family: "Segoe UI", "Roboto", Arial, sans-serif;
 }
 
-button:focus, input:focus {
+button:focus, input:focus, select:focus {
   outline: none;
 }
 
@@ -28,10 +28,24 @@ button:focus, input:focus {
   transition: .3s;
 }
 
+.main-header h2 {
+  cursor: default;
+  margin: 30px 5px;
+  color: #ccc;
+  text-align: center;
+  font-size: 30px;
+  letter-spacing: .03em;
+  transition: .3s;
+}
+
 @media (max-width: 767px) {
   .main-header h1 {
     margin: 20px 5px;
     font-size: 26px;
+  }
+  .main-header h2 {
+    margin: 20px 5px;
+    font-size: 22px;
   }
 }
 
@@ -42,8 +56,16 @@ button:focus, input:focus {
   margin: 0 auto;
 }
 
+.content-wrapper-wide {
+  width: 80vw;
+  max-width: 1200px;
+  padding: 0 10vw;
+  margin: 0 auto;
+}
+
 @media (max-width: 767px) {
-  .content-wrapper {
+  .content-wrapper,
+  .content-wrapper-wide {
     width: calc(100% - 40px);
     padding: 0 20px;
   }
@@ -106,6 +128,8 @@ button:focus, input:focus {
 
 .primary-button {
   cursor: pointer;
+  margin-right: 10px;
+  margin-left: 10px;
   border-radius: 5px;
   padding: 10px 15px;
   font-size: 20px;
@@ -116,4 +140,109 @@ button:focus, input:focus {
     padding: 8px 10px;
     font-size: 16px;
   }
+}
+
+
+.secondary-button {
+  cursor: pointer;
+  background: pink;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 20px;
+}
+
+@media (max-width: 767px) {
+  .secondary-button {
+    padding: 8px 10px;
+    font-size: 16px;
+  }
+}
+
+
+/* Dashboard */
+
+.list-default,
+.list-default option {
+  margin: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background: #333;
+  color: #aaa;
+  font-size: 16px;
+  letter-spacing: .03em;
+  transition: .3s;
+}
+
+.input-default {
+  margin: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  letter-spacing: .03em;
+  transition: .3s;
+}
+
+
+.characters-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.characters-table td,
+.characters-table th {
+  padding: 10px;
+  color: #aaa;
+  font-size: 20px;
+}
+
+.characters-table th {
+  border-bottom: 1px solid #ccc;
+}
+
+
+.characters-table .primary-button,
+.characters-table .secondary-button {
+  margin: 0 5px;
+  padding: 3px 5px;
+  font-size: 16px;
+}
+
+
+.character-add-form {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+
+
+.text-druid {
+  color: rgb(255,125,10) !important;
+}
+
+.text-hunter {
+  color: rgb(169,210,113) !important;
+}
+
+.text-mage {
+  color: rgb(64,199,235) !important;
+}
+
+.text-paladin {
+  color: rgb(245,140,186) !important;
+}
+
+.text-priest {
+  color: rgb(255,255,255) !important;
+}
+
+.text-rogue {
+  color: rgb(255,245,105) !important;
+}
+
+.text-warlock {
+  color: rgb(135,135,237) !important;
+}
+
+.text-warrior{
+  color: rgb(199,156,110) !important;
 }

@@ -12,141 +12,67 @@ const SpecRenderer = ({ profile, createCharacter }) => {
   const [spec, setSpec] = useState("")
   const [errorMsg, setErrorMsg] = useState("")
   const [successMsg, setSuccessMsg] = useState("")
-  const specList = vocation => {
-    switch (vocation) {
-      case "Priest":
-        return (
-          <div>
-            <select onChange={event => setSpec(event.target.value)}>
-              <option value="null">Choose your spec</option>
-              <option>Holy</option>
-              <option>Discipline</option>
-              <option>Shadow</option>
-            </select>
-          </div>
-        )
-      case "Warrior":
-        return (
-          <div>
-            <select onChange={event => setSpec(event.target.value)}>
-              <option value="null">Choose your spec</option>
-              <option>Protection</option>
-              <option>Fury</option>
-              <option>Arms</option>
-            </select>
-          </div>
-        )
-      case "Druid":
-        return (
-          <div>
-            <select onChange={event => setSpec(event.target.value)}>
-              <option value="null">Choose your spec</option>
-              <option>Feral</option>
-              <option>Balance</option>
-              <option>Restoration</option>
-            </select>
-          </div>
-        )
-      case "Shaman":
-        return (
-          <div>
-            <select onChange={event => setSpec(event.target.value)}>
-              <option value="null">Choose your spec</option>
-              <option>Enhancement</option>
-              <option>Restoration</option>
-              <option>Elemental</option>
-            </select>
-          </div>
-        )
-      case "Paladin":
-        return (
-          <div>
-            <select onChange={event => setSpec(event.target.value)}>
-              <option value="null">Choose your spec</option>
-              <option>Holy</option>
-              <option>Retribution</option>
-              <option>Protection</option>
-            </select>
-          </div>
-        )
-      case "Warlock":
-        return (
-          <div>
-            <select onChange={event => setSpec(event.target.value)}>
-              <option value="null">Choose your spec</option>
-              <option>Destruction</option>
-              <option>Demonology</option>
-              <option>Affliction</option>
-            </select>
-          </div>
-        )
-      case "Mage":
-        return (
-          <div>
-            <select onChange={event => setSpec(event.target.value)}>
-              <option value="null">Choose your spec</option>
-              <option>Arcane</option>
-              <option>Frost</option>
-              <option>Fire</option>
-            </select>
-          </div>
-        )
-      case "Rogue":
-        return (
-          <div>
-            <select onChange={event => setSpec(event.target.value)}>
-              <option value="null">Choose your spec</option>
-              <option>Subtlety</option>
-              <option>Combat</option>
-              <option>Assasination</option>
-            </select>
-          </div>
-        )
-      case "Hunter":
-        return (
-          <div>
-            <select onChange={event => setSpec(event.target.value)}>
-              <option value="null">Choose your spec</option>
-              <option>Marksmanship</option>
-              <option>Beast Mastery</option>
-              <option>Survival</option>
-            </select>
-          </div>
-        )
 
-      default:
-        break
+  const specList = vocation => {
+
+    const generateSpecsArray = wowClass => {
+      switch (wowClass) {
+        case "Druid":
+          return ({dps: true, tank: true, healer: true})
+        case "Hunter":
+          return ({dps: true, tank: false, healer: false})
+        case "Mage":
+          return ({dps: true, tank: false, healer: false})
+        case "Paladin":
+          return ({dps: true, tank: true, healer: true})
+        case "Priest":
+          return ({dps: true, tank: false, healer: true})
+        case "Rogue":
+          return ({dps: true, tank: false, healer: false})
+        case "Warlock":
+          return ({dps: true, tank: false, healer: false})
+        case "Warrior":
+          return ({dps: true, tank: true, healer: false})
+        default:
+          return ({dps: false, tank: false, healer: false})
+      }
     }
+
+    const generateSelectInterface = specsArray => {
+      if (!specsArray.dps) return false;
+      return (
+        <span>
+          <select className="list-default" onChange={event => setSpec(event.target.value)}>
+            <option defaultValue hidden>Choose your role</option>
+            {specsArray.dps ? <option>DPS</option> : ""}
+            {specsArray.tank ? <option>Tank</option> : ""}
+            {specsArray.healer ? <option>Healer</option> : ""}
+          </select>
+        </span>
+      )
+    }
+
+    return generateSelectInterface(generateSpecsArray(vocation));
   }
   const classList = (
-    <div>
-      <select
-        sx={{
-          backgroundColor: "rgba(16,26,52,.7)",
-          color: "#fff",
-          width: "auto",
-          height: "30px",
-          fontSize: "15px",
-          border: "1px solid white",
-          marginY: "10px",
-          textAlign: "center",
-        }}
+    <span>
+      <select 
+        className="list-default"
         onChange={event => {
           setVocation(event.target.value)
         }}
       >
-        <option>Choose a class</option>
-        <option>Warrior</option>
-        <option>Druid</option>
-        <option>Shaman</option>
-        <option>Paladin</option>
-        <option>Priest</option>
-        <option>Warlock</option>
-        <option>Mage</option>
-        <option>Rogue</option>
-        <option>Hunter</option>
+        <option defaultValue hidden>Select your class</option>
+        <option className="text-druid">Druid</option>
+        <option className="text-hunter">Hunter</option>
+        <option className="text-mage">Mage</option>
+        <option className="text-paladin">Paladin</option>
+        <option className="text-priest">Priest</option>
+        <option className="text-rogue">Rogue</option>
+        <option className="text-warlock">Warlock</option>
+        <option className="text-warrior">Warrior</option>
       </select>
-    </div>
+    </span>
   )
   const handleSubmit = useCallback(
     (name, vocation, spec) => {
@@ -184,42 +110,17 @@ const SpecRenderer = ({ profile, createCharacter }) => {
   )
 
   return (
-    <div sx={{ opacity: createCharacter ? 1 : 0 }}>
-      <div>
-
-
-        <input
-          placeholder="Character name.."
-          sx={{
-            height: "30px",
-            borderRadius: "5%",
-            outline: "none",
-            border: "none",
-            padding:'5px'
-          }}
+    <div sx={{ display: createCharacter ? "block" : "none" }}>
+      <span>
+        <input className="input-default"
+          placeholder="Character name"
           onChange={event => setName(event.target.value)}
         />
-      </div>
-      <div
-        sx={{
-          "&>div>select": {
-            backgroundColor: "rgba(16,26,52,.7)",
-            color: "#fff",
-            width: "auto",
-            height: "30px",
-            fontSize: "15px",
-            border: "1px solid white",
-            marginY: "5px",
-            textAlign: "center",
-          },
-        }}
-      >
-        {classList}
-        {specList(vocation)}
-      </div>
-      <div sx={{ width: "40%", margin: "0 auto" }}>
+      </span>
+      <span>{classList}</span>
+      <span>{specList(vocation)}</span>
+      <div>
         <PrimaryButton
-          sx={{ color: "#fff" }}
           type="submit"
           onClick={e => {
             e.preventDefault()
@@ -237,7 +138,10 @@ const SpecRenderer = ({ profile, createCharacter }) => {
             }
           }}
         >
-          Create
+          Add
+        </PrimaryButton>
+        <PrimaryButton
+         onClick={() => {e.preventDefault();}}>Cancel
         </PrimaryButton>
       </div>
       <p sx={{ color: "#bb2124" }}>{errorMsg}</p>
