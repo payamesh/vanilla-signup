@@ -38,35 +38,62 @@ const CharacterList = ({ selectedChar, setSelectedChar, showDelete }) => {
   }, [profile])
 
   const updateCharacter = () => {
-    console.log('clicky-clicky update')
+    console.log("clicky-clicky update")
   }
 
   const removeCharacter = () => {
-    console.log('clicky-clicky remove')
+    firestore
+      .collection("profile")
+      .doc(name)
+      .get()
+      .then(function(doc) {
+        if (!doc.exists) {
+          console.log("name is available")
+          firestore
+            .collection("profile")
+            .doc(name)
+            .set({
+              name: props.name,
+              class: props.vocation,
+              talents: props.spec,
+              uid: props.profile.uid,
+            })
+            .then(() => {
+              console.log("Character added.")
+            })
+        } else {
+          console.log("this name already exists")
+        }
+      })
   }
-
-
 
   return (
     <div>
       <table className="characters-table">
         <tbody>
-        <tr>
-          <th>Name</th><th>Class</th><th>Role</th><th>Actions</th>
-        </tr>
-        {characters.map(c => {
-          return (
-            <tr sx={{color:"white"}}>
-              <td key={c.name} >{c.name}</td>
-              <td key={c.class} >{c.class}</td>
-              <td key={c.talents} >{c.talents}</td>
-              <td>
-                <PrimaryButton onClick={() => updateCharacter()}>Edit</PrimaryButton>
-                <SecondaryButton onClick={() => removeCharacter()}>Delete</SecondaryButton>
-               </td>
-            </tr>
-          )
-        })}
+          <tr>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+          {characters.map(c => {
+            return (
+              <tr sx={{ color: "white" }}>
+                <td key={c.name}>{c.name}</td>
+                <td key={c.class}>{c.class}</td>
+                <td key={c.talents}>{c.talents}</td>
+                <td>
+                  <PrimaryButton onClick={() => updateCharacter()}>
+                    Edit
+                  </PrimaryButton>
+                  <SecondaryButton onClick={() => DeleteCharacter(c.name)}>
+                    Delete
+                  </SecondaryButton>
+                </td>
+              </tr>
+            )
+          })}
         </tbody>
       </table>
     </div>

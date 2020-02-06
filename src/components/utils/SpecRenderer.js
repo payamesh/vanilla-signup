@@ -14,36 +14,40 @@ const SpecRenderer = ({ profile, createCharacter }) => {
   const [successMsg, setSuccessMsg] = useState("")
 
   const specList = vocation => {
-
     const generateSpecsArray = wowClass => {
       switch (wowClass) {
         case "Druid":
-          return ({dps: true, tank: true, healer: true})
+          return { dps: true, tank: true, healer: true }
         case "Hunter":
-          return ({dps: true, tank: false, healer: false})
+          return { dps: true, tank: false, healer: false }
         case "Mage":
-          return ({dps: true, tank: false, healer: false})
+          return { dps: true, tank: false, healer: false }
         case "Paladin":
-          return ({dps: true, tank: true, healer: true})
+          return { dps: true, tank: true, healer: true }
         case "Priest":
-          return ({dps: true, tank: false, healer: true})
+          return { dps: true, tank: false, healer: true }
         case "Rogue":
-          return ({dps: true, tank: false, healer: false})
+          return { dps: true, tank: false, healer: false }
         case "Warlock":
-          return ({dps: true, tank: false, healer: false})
+          return { dps: true, tank: false, healer: false }
         case "Warrior":
-          return ({dps: true, tank: true, healer: false})
+          return { dps: true, tank: true, healer: false }
         default:
-          return ({dps: false, tank: false, healer: false})
+          return { dps: false, tank: false, healer: false }
       }
     }
 
     const generateSelectInterface = specsArray => {
-      if (!specsArray.dps) return false;
+      if (!specsArray.dps) return false
       return (
         <span>
-          <select className="list-default" onChange={event => setSpec(event.target.value)}>
-            <option defaultValue hidden>Choose your role</option>
+          <select
+            className="list-default"
+            onChange={event => setSpec(event.target.value)}
+          >
+            <option defaultValue hidden>
+              Choose your role
+            </option>
             {specsArray.dps ? <option>DPS</option> : ""}
             {specsArray.tank ? <option>Tank</option> : ""}
             {specsArray.healer ? <option>Healer</option> : ""}
@@ -52,17 +56,19 @@ const SpecRenderer = ({ profile, createCharacter }) => {
       )
     }
 
-    return generateSelectInterface(generateSpecsArray(vocation));
+    return generateSelectInterface(generateSpecsArray(vocation))
   }
   const classList = (
     <span>
-      <select 
+      <select
         className="list-default"
         onChange={event => {
           setVocation(event.target.value)
         }}
       >
-        <option defaultValue hidden>Select your class</option>
+        <option defaultValue hidden>
+          Select your class
+        </option>
         <option className="text-druid">Druid</option>
         <option className="text-hunter">Hunter</option>
         <option className="text-mage">Mage</option>
@@ -112,7 +118,8 @@ const SpecRenderer = ({ profile, createCharacter }) => {
   return (
     <div sx={{ display: createCharacter ? "block" : "none" }}>
       <span>
-        <input className="input-default"
+        <input
+          className="input-default"
           placeholder="Character name"
           onChange={event => setName(event.target.value)}
         />
@@ -141,7 +148,11 @@ const SpecRenderer = ({ profile, createCharacter }) => {
           Add
         </PrimaryButton>
         <PrimaryButton
-         onClick={() => {e.preventDefault();}}>Cancel
+          onClick={() => {
+            e.preventDefault()
+          }}
+        >
+          Cancel
         </PrimaryButton>
       </div>
       <p sx={{ color: "#bb2124" }}>{errorMsg}</p>

@@ -48,7 +48,7 @@ const Dashboard = () => {
         <h2>Character Management</h2>
       </div>
       {isLoggedIn && (
-        <div className="content-wrapper" sx={{background: "#222"}}>
+        <div className="content-wrapper" sx={{ background: "#222" }}>
           <div>
             <CharacterList
               setSelectedChar={setSelectedChar}
@@ -56,23 +56,18 @@ const Dashboard = () => {
               showDelete={true}
             />
           </div>
-          <form 
-            className="character-add-form"
-            method="POST"
-          >
+          <form className="character-add-form" method="POST">
             <div>
               <PrimaryButton
                 onClick={e => {
                   e.preventDefault()
                   onToggleCharacter()
                 }}
-              > Add a character
+              >
+                Add a character
               </PrimaryButton>
             </div>
-            <SpecRenderer
-              createCharacter={createCharacter}
-              profile={profile}
-            />
+            <SpecRenderer createCharacter={createCharacter} profile={profile} />
           </form>
           <div
             sx={{
@@ -93,7 +88,7 @@ const Dashboard = () => {
               Sign Out
             </SecondaryButton>
           </div>
-         </div>
+        </div>
       )}
       <div className="main-header">
         <h2>Upcoming Events</h2>
@@ -105,9 +100,7 @@ const Dashboard = () => {
         nefImg={nefImg}
       />
       <div>
-        {thisUser === "ThngE79hWaYEXYNnUxqdJ04H12i2" ? (
-          <CreateEvent />
-        ) : null}
+        {thisUser === "ThngE79hWaYEXYNnUxqdJ04H12i2" ? <CreateEvent /> : null}
       </div>
     </div>
   )
