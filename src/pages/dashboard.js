@@ -9,9 +9,10 @@ import CreateEvent from "../components/CreateEvent"
 import PrimaryButton from "../components/PrimaryButton"
 import SecondaryButton from "../components/SecondaryButton"
 import { graphql, useStaticQuery } from "gatsby"
-import BackgroundImage from "gatsby-background-image"
 import { auth, useAuth, firebase } from "gatsby-theme-firebase"
 import { useState } from "react"
+import MainHeader from "../components/utils/MainHeader"
+import SecondaryHeader from "../components/utils/SecondaryHeader"
 
 const Dashboard = () => {
   const [createCharacter, setCreateCharacter] = useState(false)
@@ -41,12 +42,8 @@ const Dashboard = () => {
   const nefImg = data.allImageSharp.nodes[0].fluid
   return (
     <div>
-      <div className="main-header">
-        <h1>Dashboard</h1>
-      </div>
-      <div className="main-header">
-        <h2>Character Management</h2>
-      </div>
+      <MainHeader>Dashboard</MainHeader>
+      <SecondaryHeader>Character Management</SecondaryHeader>
       {isLoggedIn && (
         <div className="content-wrapper" sx={{ background: "#222" }}>
           <div>
@@ -90,9 +87,7 @@ const Dashboard = () => {
           </div>
         </div>
       )}
-      <div className="main-header">
-        <h2>Upcoming Events</h2>
-      </div>
+      <SecondaryHeader>Upcoming Events</SecondaryHeader>
       <EventRender
         selectedChar={selectedChar}
         setSelectedChar={setSelectedChar}
