@@ -132,6 +132,7 @@ button:focus, input:focus, select:focus {
   margin-left: 10px;
   border-radius: 5px;
   padding: 10px 15px;
+  background: #ddd;
   font-size: 20px;
 }
 
@@ -245,4 +246,120 @@ button:focus, input:focus, select:focus {
 
 .text-warrior{
   color: rgb(199,156,110) !important;
+}
+
+
+.attendee-list {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+.attendee-list > div {
+  display: inline-block;
+  vertical-align: top;
+  width: calc((100% - 160px)/8);
+  min-height: 100px;
+  margin: 5px;
+  padding: 5px;
+  box-shadow: inset 0px 0px 8px 5px rgba(255,255,255,.1);
+  border-radius: 5px;
+  text-align: center;
+}
+
+.attendee-list h4 {
+  margin: 5px 10px 10px 10px;
+  padding-bottom: 5px;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.25), rgba(255,255,255,.25), rgba(255,255,255,0));
+  font-size: 20px;
+  font-weight: 500;
+  text-shadow: 1px 1px 1px #000;
+  letter-spacing: .03em;
+}
+
+.attendee-list ul {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  font-size: 18px;
+  text-shadow: 1px 1px 1px #000;
+}
+
+.attendee-list li {
+  list-style-type: none;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  border-bottom: 1px solid rgba(255,255,255,.3);
+  background: rgba(255,255,255,.1);
+}
+
+.attendee-list li:last-child {
+  border-bottom: none;
+}
+
+
+@media (max-width: 1200px) {
+  .attendee-list > div {
+    width: calc((100% - 80px)/4);
+  }
+}
+
+@media (max-width: 767px) {
+  .attendee-list > div {
+    width: calc((100% - 40px)/2);
+  }
+  .attendee-list ul {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 275px) {
+  .attendee-list > div {
+    width: calc(100% - 10px);
+  }
+}
+
+
+.event-header {
+  text-align: center;
+  text-shadow: 1px 1px 1px #000;
+}
+
+.event-name {
+  margin: 10px 5px 0 5px;
+  color: #fff;
+  font-size: 26px;
+}
+
+.event-time {
+  color: #fff;
+  font-size: 18px;
+}
+
+.event-description {
+  margin: 5px;
+  color: #ddd;
+  font-size: 20px;
+}
+
+
+.event-controls {
+  text-align: center;
+  padding: 20px 5px;
+}
+
+.event-controls input,
+.event-controls select,
+.event-controls button {
+  height: 45px;
+  font-size: 18px;
+}
+
+.event-controls select {
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+  background: #ddd;
 }

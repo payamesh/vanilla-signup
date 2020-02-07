@@ -64,15 +64,7 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
       })
   }, [])
   return (
-    <div
-      className="content-wrapper-wide"
-      sx={{
-        textAlign: "center",
-        marginTop: ["50px", "150px"],
-      }}
-    >
-      <h2>UPCOMING RAIDS</h2>
-      {/* print eventSection here :-)) */}
+    <div className="content-wrapper-wide">
       {events.map(event => {
         const time = new Date(1970, 0, 1)
         time.setSeconds(event.date.seconds + 7200)
@@ -87,49 +79,26 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
         return (
           <BackgroundImage
             style={{
-              width: ["100vw", `100%`],
-              backgroundColor: `transparent`,
-              backgroundSize: `cover`,
-              backgroundPosition: `center center`,
-              display: `flex`,
-              flexDirection: "column",
-              alignItems: `center`,
               marginBottom: "50px",
+              borderRadius: "5px"
             }}
             key={event.date}
             fluid={event.title == "Molten Core" ? ragImg : nefImg}
           >
             <div
               sx={{
-                height: ["80vh", `50vh`],
-                width: "100%",
                 backgroundColor: "rgba(16,26,52,.7)",
-                zIndex: -5,
+                zIndex: -5
               }}
             >
               <EventInfo
+                eventName={event.title}
                 eventDate={eventDate}
                 eventTime={eventTime}
                 eventComment={event.comment}
               />
               <AttendeeList attendees={event.attendees} />
-
-              <div
-                sx={{
-                  margin: "10px auto",
-                  width: "80%",
-                  position: ["absolute", "none"],
-                  bottom: "0",
-                  transform: "translateX(-50%)",
-                  left: "50%",
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  "&>*": {
-                    marginX: "20px",
-                  },
-                }}
-              >
+              <div className="event-controls">
                 <CharForRaid setSelectedChar={setSelectedChar} />
                 <PrimaryButton
                   onClick={() => signToRaid(selectedChar, event.eventID)}

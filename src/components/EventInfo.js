@@ -4,14 +4,16 @@ import { jsx } from "theme-ui"
 
 import { PropTypes } from "prop-types"
 
-const EventInfo = ({ eventDate, eventTime, eventComment }) => {
+const EventInfo = ({ eventName, eventDate, eventTime, eventComment }) => {
   return (
-    <div sx={{ margin: "0 auto", textAlign: "center" }}>
-      <h2>
-        {eventDate} {eventTime}
-      </h2>
-
-      <h3 sx={{ color: "white", margin: "0 auto" }}>{eventComment}</h3>
+    <div className="event-header">
+      <div className="event-name">
+        {eventName}
+      </div>
+      <div className="event-time">
+        {eventDate}, {eventTime}
+      </div>
+      <div className="event-description">{eventComment}</div>
     </div>
   )
 }
