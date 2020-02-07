@@ -31,7 +31,8 @@ const CharForRaid = ({ setSelectedChar }) => {
       })
   }, [profile])
   return (
-    <select onChange={e => setSelectedChar(e.target.value)}>
+    <select className="input-default" onChange={e => setSelectedChar(e.target.value)}>
+      <option selected hidden>Select a character</option>
       {characters.map(c => {
         return <option key={c.name}>{c.name}</option>
       })}

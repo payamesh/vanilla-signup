@@ -51,47 +51,57 @@ const CreateEvent = () => {
   )
 
   return (
-    <div sx={{ marginTop: "80px", textAlign: "center", width: "100%" }}>
-      <form>
-        <DatePicker
-          showTimeSelect
-          name="date"
-          onChange={event => setDate(event)}
-          selected={date}
-          value={date}
-          dateFormat="MMMM Do yyyy, h:mm:ss"
-        />
-        <br />
-        <select
-          name="title"
-          placeholder="Molten Core / BWL"
-          onChange={event => setTitle(event.target.value)}
-        >
-          <option>Choose dungeon</option>
-          <option>Molten Core</option>
-          <option>Blackwing Lair</option>
-        </select>
-        <br />
-        <textarea
-          name="comment"
-          placeholder="comment"
-          onBlur={event => setComment(event.target.value)}
-        />
-        <br />
-        <PrimaryButton
-          type="submit"
-          onClick={e => {
-            e.preventDefault()
-            if (date == null || title == "" || comment == "") {
-              console.log("Fill out the whole form")
-            } else {
-              handleSubmit(eventID, title, date, comment, attendees)
-            }
-          }}
-        >
-          Create Raid
-        </PrimaryButton>
-      </form>
+    
+    <div className="content-wrapper-wide" sx={{marginBottom: "50px"}}>
+      <div className="management-block">
+        <form>
+          <DatePicker
+            className="input-default"
+            showTimeSelect
+            name="date"
+            onChange={event => setDate(event)}
+            selected={date}
+            value={date}
+            dateFormat="MMMM Do yyyy, h:mm:ss"
+          />
+          <br />
+          <select
+            className="input-default input-dark"
+            name="title"
+            placeholder="Molten Core / BWL"
+            onChange={event => setTitle(event.target.value)}
+          >
+            <option>Select a raid</option>
+            <option>Molten Core</option>
+            <option>Blackwing Lair</option>
+            <option>Temple of Ahn'Qiraj</option>
+            <option>Naxxramas</option>
+          </select>
+          <br />
+          <textarea
+            className="input-default input-dark"
+            name="comment"
+            placeholder="Description for the event."
+            onBlur={event => setComment(event.target.value)}
+            raws="3"
+            sx={{width: 'calc(100% - 40px)', resize: "vertical", minHeight: "50px", maxHeight: "200px"}}
+          />
+          <br />
+          <PrimaryButton
+            type="submit"
+            onClick={e => {
+              e.preventDefault()
+              if (date == null || title == "" || comment == "") {
+                console.log("Fill out the whole form")
+              } else {
+                handleSubmit(eventID, title, date, comment, attendees)
+              }
+            }}
+          >
+            Create New Event
+          </PrimaryButton>
+        </form>
+      </div>
     </div>
   )
 }

@@ -41,6 +41,10 @@ const CharacterList = () => {
     console.log("clicky-clicky update")
   }
 
+  const getClassColor = (wowClass) => {
+    return ("text-" + wowClass.toLowerCase())
+  }
+
   return (
     <div>
       <table className="characters-table">
@@ -48,15 +52,15 @@ const CharacterList = () => {
           <tr>
             <th>Name</th>
             <th>Class</th>
-            <th>Role</th>
+            <th className="small-screen-hidden">Role</th>
             <th>Actions</th>
           </tr>
           {characters.map(c => {
             return (
               <tr key={c.name} sx={{ color: "white" }}>
-                <td key={c.name}>{c.name}</td>
-                <td key={c.class}>{c.class}</td>
-                <td key={c.talents}>{c.talents}</td>
+                <td key={c.name} className={getClassColor(c.class)}>{c.name}</td>
+                <td key={c.class} className={getClassColor(c.class)}>{c.class}</td>
+                <td key={c.talents} className="small-screen-hidden">{c.talents}</td>
                 <td>
                   <PrimaryButton onClick={() => updateCharacter()}>
                     Edit

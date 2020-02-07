@@ -45,45 +45,47 @@ const Dashboard = () => {
       <MainHeader>Dashboard</MainHeader>
       <SecondaryHeader>Character Management</SecondaryHeader>
       {isLoggedIn && (
-        <div className="content-wrapper" sx={{ background: "#222" }}>
-          <div>
-            <CharacterList
-              setSelectedChar={setSelectedChar}
-              selectedChar={selectedChar}
-              showDelete={true}
-            />
-          </div>
-          <form className="character-add-form" method="POST">
+        <div className="content-wrapper-wide">
+          <div className="management-block">
             <div>
-              <PrimaryButton
-                onClick={e => {
-                  e.preventDefault()
-                  onToggleCharacter()
-                }}
-              >
-                Add a character
-              </PrimaryButton>
+              <CharacterList
+                setSelectedChar={setSelectedChar}
+                selectedChar={selectedChar}
+                showDelete={true}
+              />
             </div>
-            <SpecRenderer createCharacter={createCharacter} profile={profile} />
-          </form>
-          <div
-            sx={{
-              position: ["absolute"],
-              top: ["100%", "10px"],
-              right: ["50%", "10px"],
-              transform: ["translateX(50%)", "none"],
-            }}
-          >
-            <SecondaryButton
-              style={{
-                ":hover": {
-                  cursor: "pointer",
-                },
+            <form className="character-add-form" method="POST">
+              <div>
+                <PrimaryButton
+                  onClick={e => {
+                    e.preventDefault()
+                    onToggleCharacter()
+                  }}
+                >
+                  Add a character
+                </PrimaryButton>
+              </div>
+              <SpecRenderer createCharacter={createCharacter} profile={profile} />
+            </form>
+            <div
+              sx={{
+                position: ["absolute"],
+                top: ["100%", "10px"],
+                right: ["50%", "10px"],
+                transform: ["translateX(50%)", "none"],
               }}
-              onClick={() => auth.signOut()}
             >
-              Sign Out
-            </SecondaryButton>
+              <SecondaryButton
+                style={{
+                  ":hover": {
+                    cursor: "pointer",
+                  },
+                }}
+                onClick={() => auth.signOut()}
+              >
+                Sign Out
+              </SecondaryButton>
+            </div>
           </div>
         </div>
       )}
@@ -94,9 +96,8 @@ const Dashboard = () => {
         ragImg={ragImg}
         nefImg={nefImg}
       />
-      <div>
-        {thisUser === "ThngE79hWaYEXYNnUxqdJ04H12i2" ? <CreateEvent /> : null}
-      </div>
+      {thisUser === "ThngE79hWaYEXYNnUxqdJ04H12i2" ? <SecondaryHeader>Event Management</SecondaryHeader> : null}
+      {thisUser === "ThngE79hWaYEXYNnUxqdJ04H12i2" ? <CreateEvent /> : null}
     </div>
   )
 }

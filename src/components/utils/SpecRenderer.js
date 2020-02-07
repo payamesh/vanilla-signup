@@ -5,6 +5,7 @@ import { useState, useCallback } from "react"
 import { PropTypes } from "prop-types"
 import { firestore } from "gatsby-theme-firebase"
 import PrimaryButton from "../PrimaryButton"
+import SecondaryButton from "../SecondaryButton"
 
 const SpecRenderer = ({ profile, createCharacter }) => {
   const [name, setName] = useState("")
@@ -12,6 +13,10 @@ const SpecRenderer = ({ profile, createCharacter }) => {
   const [spec, setSpec] = useState("")
   const [errorMsg, setErrorMsg] = useState("")
   const [successMsg, setSuccessMsg] = useState("")
+
+  const getClassColor = (wowClass) => {
+    return ("text-" + wowClass.toLowerCase())
+  }
 
   const specList = vocation => {
     const generateSpecsArray = wowClass => {
@@ -42,7 +47,7 @@ const SpecRenderer = ({ profile, createCharacter }) => {
       return (
         <span>
           <select
-            className="list-default"
+            className="input-default input-smaller input-dark"
             onChange={event => setSpec(event.target.value)}
           >
             <option defaultValue hidden>
@@ -61,9 +66,10 @@ const SpecRenderer = ({ profile, createCharacter }) => {
   const classList = (
     <span>
       <select
-        className="list-default"
+        className="input-default input-smaller input-dark" 
         onChange={event => {
           setVocation(event.target.value)
+          event.target.className = "input-default input-smaller input-dark " + getClassColor(event.target.value)
         }}
       >
         <option defaultValue hidden>
@@ -119,7 +125,7 @@ const SpecRenderer = ({ profile, createCharacter }) => {
     <div sx={{ display: createCharacter ? "block" : "none" }}>
       <span>
         <input
-          className="input-default"
+          className="input-default input-smaller"
           placeholder="Character name"
           onChange={event => setName(event.target.value)}
         />
@@ -147,13 +153,13 @@ const SpecRenderer = ({ profile, createCharacter }) => {
         >
           Add
         </PrimaryButton>
-        <PrimaryButton
+        <SecondaryButton
           onClick={() => {
             e.preventDefault()
           }}
         >
           Cancel
-        </PrimaryButton>
+        </SecondaryButton>
       </div>
       <p sx={{ color: "#bb2124" }}>{errorMsg}</p>
       <p sx={{ color: "#22bb33" }}>{successMsg}</p>

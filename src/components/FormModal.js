@@ -27,11 +27,13 @@ const FormModal = ({ myFunc, setEmail, setPassword, email, password, btnText }) 
           }}
         >
           <input
+            className="input-default"
             type="username"
             placeholder="username"
             onBlur={event => setEmail(event.target.value)}
           />
           <input
+            className="input-default"
             type="password"
             placeholder="password"
             onBlur={event => setPassword(event.target.value)}

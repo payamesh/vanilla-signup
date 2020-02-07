@@ -29,11 +29,15 @@ const LandingPage = () => {
   const displayLoginForm = () => {
     document.getElementById('loginForm').style.display = 'block';
     document.getElementById('signupForm').style.display = 'none'
+    document.getElementById('loginTabName').classList.add("tab-name-selected");
+    document.getElementById('signupTabName').classList.remove("tab-name-selected");
   }
 
   const displaySignupForm = () => {
     document.getElementById('signupForm').style.display = 'block';
-    document.getElementById('loginForm').style.display = 'none'
+    document.getElementById('loginForm').style.display = 'none';
+    document.getElementById('signupTabName').classList.add("tab-name-selected");
+    document.getElementById('loginTabName').classList.remove("tab-name-selected");
   }
 
   return (
@@ -42,8 +46,8 @@ const LandingPage = () => {
         <h1>&lt;EzClap&gt; Event Planner</h1>
       </div>
       <div className="content-wrapper login-form">
-        <div className="tab-name" onClick={displayLoginForm}>Log In</div>
-        <div className="tab-name" onClick={displaySignupForm}>Sign Up</div>
+        <div className="tab-name tab-name-selected" id="loginTabName" onClick={displayLoginForm}>Log In</div>
+        <div className="tab-name" id="signupTabName" onClick={displaySignupForm}>Sign Up</div>
         <div id="loginForm">
           <FormModal
             setPassword={setPassword}
