@@ -8,7 +8,7 @@ import DeleteCharacter from "./utils/DeleteCharacter"
 import PrimaryButton from "./PrimaryButton"
 import SecondaryButton from "../components/SecondaryButton"
 
-const CharacterList = ({ selectedChar, setSelectedChar, showDelete }) => {
+const CharacterList = () => {
   const [characters, setCharacters] = useState([])
   const { profile } = useAuth()
   const [currentUser, setCurrentUser] = useState("")
@@ -41,32 +41,6 @@ const CharacterList = ({ selectedChar, setSelectedChar, showDelete }) => {
     console.log("clicky-clicky update")
   }
 
-  const removeCharacter = () => {
-    firestore
-      .collection("profile")
-      .doc(name)
-      .get()
-      .then(function(doc) {
-        if (!doc.exists) {
-          console.log("name is available")
-          firestore
-            .collection("profile")
-            .doc(name)
-            .set({
-              name: props.name,
-              class: props.vocation,
-              talents: props.spec,
-              uid: props.profile.uid,
-            })
-            .then(() => {
-              console.log("Character added.")
-            })
-        } else {
-          console.log("this name already exists")
-        }
-      })
-  }
-
   return (
     <div>
       <table className="characters-table">
@@ -79,7 +53,7 @@ const CharacterList = ({ selectedChar, setSelectedChar, showDelete }) => {
           </tr>
           {characters.map(c => {
             return (
-              <tr sx={{ color: "white" }}>
+              <tr key={c.name} sx={{ color: "white" }}>
                 <td key={c.name}>{c.name}</td>
                 <td key={c.class}>{c.class}</td>
                 <td key={c.talents}>{c.talents}</td>
