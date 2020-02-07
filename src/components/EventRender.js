@@ -5,10 +5,10 @@ import { firestore, firebase } from "gatsby-theme-firebase"
 import { useState, useEffect, useCallback } from "react"
 import BackgroundImage from "gatsby-background-image"
 import { PropTypes } from "prop-types"
-import CharacterList from "./CharacterList"
 import AttendeeList from "./AttendeeList"
 import EventInfo from "./EventInfo"
 import PrimaryButton from "./PrimaryButton"
+import CharForRaid from "./utils/CharForRaid"
 
 const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
   let addedChar
@@ -64,9 +64,9 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
       })
   }, [])
   return (
-    <div className="content-wrapper-wide"
+    <div
+      className="content-wrapper-wide"
       sx={{
-        
         textAlign: "center",
         marginTop: ["50px", "150px"],
       }}
@@ -130,10 +130,7 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
                   },
                 }}
               >
-                <CharacterList
-                  setSelectedChar={setSelectedChar}
-                  showDelete={false}
-                />
+                <CharForRaid setSelectedChar={setSelectedChar} />
                 <PrimaryButton
                   onClick={() => signToRaid(selectedChar, event.eventID)}
                 >

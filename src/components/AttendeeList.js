@@ -53,7 +53,7 @@ const AttendeeList = ({ attendees }) => {
         {classToRender.map(players => {
           return (
             <div key={players.addedChar.name}>
-              <li sx={{ listStyleType: "none" }}>
+              <li sx={{ color: "#fff", listStyleType: "none" }}>
                 {players.addedChar.name} -{players.addedChar.talents}
               </li>
               <hr sx={{ marginY: "2px", borderWidth: "0.5px" }} />
