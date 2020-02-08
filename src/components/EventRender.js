@@ -11,7 +11,9 @@ import PrimaryButton from "./PrimaryButton"
 import CharForRaid from "./utils/CharForRaid"
 
 const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
-  let addedChar
+  let addedChar = []
+  const [successMsg, setSuccessMsg] = useState("")
+  const [errorMsg, setErrorMsg] = useState("")
 
   const signToRaid = useCallback(
     (selectedChar, eventID) => {
@@ -23,27 +25,38 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
           querySnapshot.forEach(function(doc) {
             addedChar = doc.data()
           })
-          setSelectedChar(addedChar)
-        })
-      firestore
-        .collection("events")
-        .get()
-        .then(function(doc) {
-          if (!doc.exists) {
-            console.log("name is available")
+          if (addedChar.length === 0) {
+            setErrorMsg("Choose a Character")
+            setTimeout(() => {
+              setErrorMsg("")
+            }, 3000)
+          } else {
+            setSelectedChar(addedChar)
+            console.log("ok")
             firestore
               .collection("events")
-              .doc(eventID)
-              .update({
-                attendees: firebase.firestore.FieldValue.arrayUnion({
-                  addedChar,
-                }),
+              .get()
+              .then(function(doc) {
+                if (!doc.exists) {
+                  console.log("name is available")
+                  firestore
+                    .collection("events")
+                    .doc(eventID)
+                    .update({
+                      attendees: firebase.firestore.FieldValue.arrayUnion({
+                        addedChar,
+                      }),
+                    })
+                    .then(() => {
+                      setSuccessMsg("Character added to raid.")
+                      setTimeout(() => {
+                        setSuccessMsg("")
+                      }, 3000)
+                    })
+                } else {
+                  console.log("this char is already signed to this raid")
+                }
               })
-              .then(() => {
-                console.log("Character added to raid.")
-              })
-          } else {
-            console.log("this char is already signed to this raid")
           }
         })
     },
@@ -80,7 +93,7 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
           <BackgroundImage
             style={{
               marginBottom: "50px",
-              borderRadius: "5px"
+              borderRadius: "5px",
             }}
             key={event.date}
             fluid={event.title == "Molten Core" ? ragImg : nefImg}
@@ -88,7 +101,7 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
             <div
               sx={{
                 backgroundColor: "rgba(16,26,52,.7)",
-                zIndex: -5
+                zIndex: -5,
               }}
             >
               <EventInfo
@@ -105,6 +118,8 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
                 >
                   Signup to raid
                 </PrimaryButton>
+                <p sx={{ color: "#bb2124" }}>{errorMsg}</p>
+                <p sx={{ color: "#22bb33" }}>{successMsg}</p>
               </div>
             </div>
           </BackgroundImage>
