@@ -51,8 +51,7 @@ const CreateEvent = () => {
   )
 
   return (
-    
-    <div className="content-wrapper-wide" sx={{marginBottom: "50px"}}>
+    <div className="content-wrapper-wide" sx={{ marginBottom: "50px" }}>
       <div className="management-block">
         <form>
           <DatePicker
@@ -84,7 +83,12 @@ const CreateEvent = () => {
             placeholder="Description for the event."
             onBlur={event => setComment(event.target.value)}
             raws="3"
-            sx={{width: 'calc(100% - 40px)', resize: "vertical", minHeight: "50px", maxHeight: "200px"}}
+            sx={{
+              width: "calc(100% - 40px)",
+              resize: "vertical",
+              minHeight: "50px",
+              maxHeight: "200px",
+            }}
           />
           <br />
           <PrimaryButton
