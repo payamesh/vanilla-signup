@@ -18,6 +18,12 @@ const Dashboard = () => {
   const [createCharacter, setCreateCharacter] = useState(false)
   const onToggleCharacter = () => setCreateCharacter(!createCharacter)
   const [selectedChar, setSelectedChar] = useState([])
+  const [emailMsg, setEmailMsg] = useState([])
+  let user = firebase.auth().currentUser
+
+  const { isLoggedIn, profile } = useAuth()
+
+  const [thisUser, setUser] = useState("")
 
   const data = useStaticQuery(graphql`
     query MyQuery {
@@ -31,20 +37,63 @@ const Dashboard = () => {
       }
     }
   `)
-  const [thisUser, setUser] = useState("")
-  let user = firebase.auth().currentUser
-
-  while (user && thisUser === "") {
-    return setUser(user.uid)
-  }
-  const { isLoggedIn, profile } = useAuth()
   const ragImg = data.allImageSharp.nodes[1].fluid
   const nefImg = data.allImageSharp.nodes[0].fluid
+  while (user && thisUser === "") {
+    return setUser({
+      name: user.displayName,
+      email: user.email,
+      photoUrl: user.photoURL,
+      emailVerified: user.emailVerified,
+      uid: user.uid,
+    })
+  }
+  const verificationMail = () => {
+    user
+      .sendEmailVerification()
+      .then(function() {
+        setEmailMsg("A verification mail has been sent")
+      })
+      .catch(function(error) {
+        // An error happened.
+      })
+  }
+
   return (
     <div>
+      {!thisUser.emailVerified && (
+        <div>
+          <div
+            sx={{
+              position: ["absolute"],
+              top: ["100%", "10px"],
+              right: ["50%", "10px"],
+              transform: ["translateX(50%)", "none"],
+            }}
+          >
+            <SecondaryButton
+              style={{
+                ":hover": {
+                  cursor: "pointer",
+                },
+              }}
+              onClick={() => auth.signOut()}
+            >
+              Sign Out
+            </SecondaryButton>
+          </div>
+          <div>
+            <h1 sx={{ color: "#fff" }}>Time to verify your email</h1>
+            <button onClick={() => verificationMail()}>
+              Send verification
+            </button>
+            <p sx={{ color: "#fff" }}>{emailMsg}</p>
+          </div>
+        </div>
+      )}
       <MainHeader>Dashboard</MainHeader>
       <SecondaryHeader>Character Management</SecondaryHeader>
-      {isLoggedIn && (
+      {thisUser.emailVerified && (
         <div className="content-wrapper-wide">
           <div className="management-block">
             <div>
@@ -65,27 +114,11 @@ const Dashboard = () => {
                   Add a character
                 </PrimaryButton>
               </div>
-              <SpecRenderer createCharacter={createCharacter} profile={profile} />
+              <SpecRenderer
+                createCharacter={createCharacter}
+                profile={profile}
+              />
             </form>
-            <div
-              sx={{
-                position: ["absolute"],
-                top: ["100%", "10px"],
-                right: ["50%", "10px"],
-                transform: ["translateX(50%)", "none"],
-              }}
-            >
-              <SecondaryButton
-                style={{
-                  ":hover": {
-                    cursor: "pointer",
-                  },
-                }}
-                onClick={() => auth.signOut()}
-              >
-                Sign Out
-              </SecondaryButton>
-            </div>
           </div>
         </div>
       )}
@@ -96,8 +129,10 @@ const Dashboard = () => {
         ragImg={ragImg}
         nefImg={nefImg}
       />
-      {thisUser === "ThngE79hWaYEXYNnUxqdJ04H12i2" ? <SecondaryHeader>Event Management</SecondaryHeader> : null}
-      {thisUser === "ThngE79hWaYEXYNnUxqdJ04H12i2" ? <CreateEvent /> : null}
+      {thisUser.uid === "ThngE79hWaYEXYNnUxqdJ04H12i2" ? (
+        <SecondaryHeader>Event Management</SecondaryHeader>
+      ) : null}
+      {thisUser.uid === "ThngE79hWaYEXYNnUxqdJ04H12i2" ? <CreateEvent /> : null}
     </div>
   )
 }
