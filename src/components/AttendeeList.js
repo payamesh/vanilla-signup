@@ -15,39 +15,39 @@ const AttendeeList = ({ attendees }) => {
     warriors: [],
   }
 
-  attendees.map(attendee => {
-    switch (attendee.addedChar.class) {
+  for (const key in attendees) {
+    switch (attendees[key].class) {
       case "Druid":
-        signUps.druids.push(attendee)
+        signUps.druids.push(attendees[key])
         break
       case "Hunter":
-        signUps.hunters.push(attendee)
+        signUps.hunters.push(attendees[key])
         break
       case "Mage":
-        signUps.mages.push(attendee)
+        signUps.mages.push(attendees[key])
         break
       case "Paladin":
-        signUps.paladins.push(attendee)
+        signUps.paladins.push(attendees[key])
         break
       case "Priest":
-        signUps.priests.push(attendee)
+        signUps.priests.push(attendees[key])
         break
       case "Rogue":
-        signUps.rogues.push(attendee)
+        signUps.rogues.push(attendees[key])
         break
       case "Warlock":
-        signUps.warlocks.push(attendee)
+        signUps.warlocks.push(attendees[key])
         break
       case "Warrior":
-        signUps.warriors.push(attendee)
+        signUps.warriors.push(attendees[key])
         break
       default:
         break
     }
-  })
+  }
 
-  const capitalize = (s) => {
-    if (typeof s !== 'string') return ''
+  const capitalize = s => {
+    if (typeof s !== "string") return ""
     return s.charAt(0).toUpperCase() + s.slice(1)
   }
 
@@ -56,9 +56,9 @@ const AttendeeList = ({ attendees }) => {
       <div>
         {classToRender.map(players => {
           return (
-            <div key={players.addedChar.name}>
+            <div key={players.name}>
               <li>
-                {capitalize(players.addedChar.name.toLowerCase())} - {players.addedChar.talents}
+                {capitalize(players.name.toLowerCase())} - {players.talents}
               </li>
             </div>
           )

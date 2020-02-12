@@ -14,7 +14,7 @@ const CharacterList = () => {
   const [currentUser, setCurrentUser] = useState("")
   const [successMsg, setSuccessMsg] = useState("")
   const [errorMsg, setErrorMsg] = useState("")
-  let charList = []
+
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       setCurrentUser(user.uid)
@@ -27,13 +27,13 @@ const CharacterList = () => {
     firestore
       .collection("profile")
       .where("uid", "==", `${currentUser}`)
-      .get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
+      .onSnapshot(function(snapshot) {
+        let tempArray = []
+        snapshot.forEach(function(doc) {
           // console.log(doc.data()) // class:"string", name="string", talents="string"
-          charList.push(doc.data())
+          tempArray.push(doc.data())
         })
-        setCharacters(charList)
+        setCharacters(tempArray)
       })
   }, [profile])
 
@@ -41,8 +41,8 @@ const CharacterList = () => {
     console.log("clicky-clicky update")
   }
 
-  const getClassColor = (wowClass) => {
-    return ("text-" + wowClass.toLowerCase())
+  const getClassColor = wowClass => {
+    return "text-" + wowClass.toLowerCase()
   }
 
   return (
@@ -58,9 +58,15 @@ const CharacterList = () => {
           {characters.map(c => {
             return (
               <tr key={c.name} sx={{ color: "white" }}>
-                <td key={c.name} className={getClassColor(c.class)}>{c.name}</td>
-                <td key={c.class} className={getClassColor(c.class)}>{c.class}</td>
-                <td key={c.talents} className="small-screen-hidden">{c.talents}</td>
+                <td key={c.name} className={getClassColor(c.class)}>
+                  {c.name}
+                </td>
+                <td key={c.class} className={getClassColor(c.class)}>
+                  {c.class}
+                </td>
+                <td key={c.talents} className="small-screen-hidden">
+                  {c.talents}
+                </td>
                 <td>
                   <PrimaryButton onClick={() => updateCharacter()}>
                     Edit

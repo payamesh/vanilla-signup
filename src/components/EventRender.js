@@ -32,29 +32,69 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
             }, 3000)
           } else {
             setSelectedChar(addedChar)
-            console.log("ok")
             firestore
               .collection("events")
               .get()
               .then(function(doc) {
                 if (!doc.exists) {
-                  console.log("name is available")
                   firestore
                     .collection("events")
                     .doc(eventID)
-                    .update({
-                      attendees: firebase.firestore.FieldValue.arrayUnion({
-                        addedChar,
-                      }),
+                    .get()
+                    .then(function(doc) {
+                      const docData = doc.data()
+
+                      firestore
+                        .collection("events")
+                        .doc(eventID)
+                        .set(
+                          {
+                            ...docData,
+                            attendees: {
+                              ...docData.attendees,
+                              [addedChar.name]: {
+                                name: addedChar.name,
+                                class: addedChar.class,
+                                talents: addedChar.talents,
+                              },
+                            },
+                          },
+                          {
+                            merge: true,
+                          }
+                        )
+                        // .update({
+                        //   attendees: firebase.firestore.FieldValue.arrayUnion(
+                        //     {
+                        //       name: addedChar.name,
+                        //       class: addedChar.class,
+                        //       talents: addedChar.talents,
+                        //     }
+                        //   ),
+                        // })
+                        .then(() => {
+                          setSuccessMsg("Character added to raid.")
+                          setTimeout(() => {
+                            setSuccessMsg("")
+                          }, 3000)
+                        })
+
+                      for (const key in docData.attendees) {
+                        if (key == selectedChar) {
+                          setErrorMsg(
+                            "this char is already signed to this raid"
+                          )
+                          let atts = docData
+
+                          delete docData.attendees[addedChar.name]
+
+                          firestore
+                            .collection("events")
+                            .doc(eventID)
+                            .set(atts)
+                        }
+                      }
                     })
-                    .then(() => {
-                      setSuccessMsg("Character added to raid.")
-                      setTimeout(() => {
-                        setSuccessMsg("")
-                      }, 3000)
-                    })
-                } else {
-                  console.log("this char is already signed to this raid")
                 }
               })
           }
@@ -65,16 +105,13 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
 
   const [events, setEvent] = useState([])
   useEffect(() => {
-    firestore
-      .collection("events")
-      .get()
-      .then(function(querySnapshot) {
-        const eventList = []
-        querySnapshot.forEach(function(doc) {
-          eventList.push(doc.data())
-        })
-        setEvent(eventList)
+    firestore.collection("events").onSnapshot(function(snapshot) {
+      const eventList = []
+      snapshot.forEach(function(doc) {
+        eventList.push(doc.data())
       })
+      setEvent(eventList)
+    })
   }, [])
   return (
     <div className="content-wrapper-wide">
@@ -109,22 +146,41 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
                 eventDate={eventDate}
                 eventTime={eventTime}
                 eventComment={event.comment}
-              />
-              <AttendeeList attendees={event.attendees} />
+              />{" "}
+              <AttendeeList attendees={event.attendees} />{" "}
               <div className="event-controls">
-                <CharForRaid setSelectedChar={setSelectedChar} />
+                <CharForRaid setSelectedChar={setSelectedChar} />{" "}
                 <PrimaryButton
                   onClick={() => signToRaid(selectedChar, event.eventID)}
                 >
-                  Signup to raid
-                </PrimaryButton>
-                <p sx={{ color: "#bb2124" }}>{errorMsg}</p>
-                <p sx={{ color: "#22bb33" }}>{successMsg}</p>
-              </div>
-            </div>
+                  Signup to raid{" "}
+                </PrimaryButton>{" "}
+                <PrimaryButton
+                  onClick={() => signToRaid(selectedChar, event.eventID)}
+                >
+                  remove from raid{" "}
+                </PrimaryButton>{" "}
+                <p
+                  sx={{
+                    color: "#bb2124",
+                  }}
+                >
+                  {" "}
+                  {errorMsg}{" "}
+                </p>{" "}
+                <p
+                  sx={{
+                    color: "#22bb33",
+                  }}
+                >
+                  {" "}
+                  {successMsg}{" "}
+                </p>{" "}
+              </div>{" "}
+            </div>{" "}
           </BackgroundImage>
         )
-      })}
+      })}{" "}
     </div>
   )
 }

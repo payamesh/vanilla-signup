@@ -82,57 +82,78 @@ const Dashboard = () => {
               Sign Out
             </SecondaryButton>
           </div>
-          <div>
+          <div sx={{ textAlign: "center", marginTop: "100px" }}>
             <h1 sx={{ color: "#fff" }}>Time to verify your email</h1>
-            <button onClick={() => verificationMail()}>
+            <PrimaryButton onClick={() => verificationMail()}>
               Send verification
-            </button>
+            </PrimaryButton>
             <p sx={{ color: "#fff" }}>{emailMsg}</p>
           </div>
         </div>
       )}
-      <MainHeader>Dashboard</MainHeader>
-      <SecondaryHeader>Character Management</SecondaryHeader>
       {thisUser.emailVerified && (
-        <div className="content-wrapper-wide">
-          <div className="management-block">
-            <div>
-              <CharacterList
-                setSelectedChar={setSelectedChar}
-                selectedChar={selectedChar}
-                showDelete={true}
-              />
+        <div>
+          <MainHeader>Dashboard</MainHeader>
+          <SecondaryHeader>Character Management</SecondaryHeader>
+          <div className="content-wrapper-wide">
+            <div
+              sx={{
+                position: ["absolute"],
+                top: ["100%", "10px"],
+                right: ["50%", "10px"],
+                transform: ["translateX(50%)", "none"],
+              }}
+            >
+              <SecondaryButton
+                style={{
+                  ":hover": {
+                    cursor: "pointer",
+                  },
+                }}
+                onClick={() => auth.signOut()}
+              >
+                Sign Out
+              </SecondaryButton>
             </div>
-            <form className="character-add-form" method="POST">
+            <div className="management-block">
               <div>
-                <PrimaryButton
-                  onClick={e => {
-                    e.preventDefault()
-                    onToggleCharacter()
-                  }}
-                >
-                  Add a character
-                </PrimaryButton>
+                <CharacterList
+                  setSelectedChar={setSelectedChar}
+                  selectedChar={selectedChar}
+                  showDelete={true}
+                />
               </div>
-              <SpecRenderer
-                createCharacter={createCharacter}
-                profile={profile}
-              />
-            </form>
+              <form className="character-add-form" method="POST">
+                <div>
+                  <PrimaryButton
+                    onClick={e => {
+                      e.preventDefault()
+                      onToggleCharacter()
+                    }}
+                  >
+                    Add a character
+                  </PrimaryButton>
+                </div>
+                <SpecRenderer
+                  createCharacter={createCharacter}
+                  profile={profile}
+                />
+              </form>
+            </div>
           </div>
+          <SecondaryHeader>Upcoming Events</SecondaryHeader>
+          <EventRender
+            selectedChar={selectedChar}
+            setSelectedChar={setSelectedChar}
+            ragImg={ragImg}
+            nefImg={nefImg}
+          />
         </div>
       )}
-      <SecondaryHeader>Upcoming Events</SecondaryHeader>
-      <EventRender
-        selectedChar={selectedChar}
-        setSelectedChar={setSelectedChar}
-        ragImg={ragImg}
-        nefImg={nefImg}
-      />
-      {thisUser.uid === "ThngE79hWaYEXYNnUxqdJ04H12i2" ? (
+      {thisUser.uid === "1SzPu4S0vrSw4Go0eMbdsN7bQkT2" ? (
         <SecondaryHeader>Event Management</SecondaryHeader>
       ) : null}
-      {thisUser.uid === "ThngE79hWaYEXYNnUxqdJ04H12i2" ? <CreateEvent /> : null}
+      {thisUser.uid === "1SzPu4S0vrSw4Go0eMbdsN7bQkT2" ? <CreateEvent /> : null}
     </div>
   )
 }

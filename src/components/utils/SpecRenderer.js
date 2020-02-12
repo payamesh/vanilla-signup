@@ -146,7 +146,7 @@ const SpecRenderer = ({ profile, createCharacter }) => {
               handleSubmit(name, vocation, spec)
               setSuccessMsg("Character created!")
               setTimeout(() => {
-                window.location.reload()
+                setSuccessMsg("")
               }, 3000)
             }
           }}

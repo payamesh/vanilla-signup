@@ -11,7 +11,7 @@ const CreateEvent = () => {
   const [date, setDate] = useState(new Date())
   const [title, setTitle] = useState("")
   const [comment, setComment] = useState("")
-  const attendees = []
+  const attendees = {}
   let eventID =
     Math.random()
       .toString(36)
