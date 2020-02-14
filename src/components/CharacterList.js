@@ -8,6 +8,10 @@ import DeleteCharacter from "./utils/DeleteCharacter"
 import PrimaryButton from "./PrimaryButton"
 import SecondaryButton from "../components/SecondaryButton"
 
+import imgTank from "../img/icons/role_tank.png"
+import imgDPS from "../img/icons/role_dps.png"
+import imgHealer from "../img/icons/role_healer.png"
+
 const CharacterList = () => {
   const [characters, setCharacters] = useState([])
   const { profile } = useAuth()
@@ -45,6 +49,15 @@ const CharacterList = () => {
     return "text-" + wowClass.toLowerCase()
   }
 
+  const getRoleImg = wowRole => {
+
+    if (wowRole == "Tank") return imgTank;
+    if (wowRole == "DPS") return imgDPS;
+    if (wowRole == "Healer") return imgHealer;
+
+    return false;
+  }
+
   return (
     <div>
       <table className="characters-table">
@@ -65,7 +78,7 @@ const CharacterList = () => {
                   {c.class}
                 </td>
                 <td key={c.talents} className="small-screen-hidden">
-                  {c.talents}
+                  <img className="role-icon" src={getRoleImg(c.talents)} /> {c.talents}
                 </td>
                 <td>
                   <PrimaryButton onClick={() => updateCharacter()}>

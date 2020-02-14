@@ -40,7 +40,7 @@ const FormModal = ({
             <input
               className="input-default"
               type="username"
-              placeholder="username"
+              placeholder="email"
               onBlur={event => setEmail(event.target.value)}
             />
             <input
@@ -49,7 +49,7 @@ const FormModal = ({
               placeholder="password"
               onBlur={event => setPassword(event.target.value)}
             />
-            <div sx={{ margin: "0 auto", width: "100%", textAlign: "center" }}>
+            <div className="form-modal-inner-container">
               <PrimaryButton
                 onClick={e => {
                   e.preventDefault()
@@ -58,7 +58,7 @@ const FormModal = ({
               >
                 {btnText}
               </PrimaryButton>
-              <p>{msg}</p>
+              <p className="form-modal-error-msg">{msg}</p>
             </div>
           </div>
         </div>

@@ -8,6 +8,7 @@ import { PropTypes } from "prop-types"
 import AttendeeList from "./AttendeeList"
 import EventInfo from "./EventInfo"
 import PrimaryButton from "./PrimaryButton"
+import SecondaryButton from "./SecondaryButton"
 import CharForRaid from "./utils/CharForRaid"
 
 const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
@@ -153,13 +154,13 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
                 <PrimaryButton
                   onClick={() => signToRaid(selectedChar, event.eventID)}
                 >
-                  Signup to raid{" "}
+                  Sign Up{" "}
                 </PrimaryButton>{" "}
-                <PrimaryButton
+                <SecondaryButton
                   onClick={() => signToRaid(selectedChar, event.eventID)}
                 >
-                  remove from raid{" "}
-                </PrimaryButton>{" "}
+                  Remove{" "}
+                </SecondaryButton>{" "}
                 <p
                   sx={{
                     color: "#bb2124",

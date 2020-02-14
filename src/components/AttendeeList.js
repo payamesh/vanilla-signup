@@ -3,6 +3,10 @@
 import { jsx } from "theme-ui"
 import { PropTypes } from "prop-types"
 
+import imgTank from "../img/icons/role_tank.png"
+import imgDPS from "../img/icons/role_dps.png"
+import imgHealer from "../img/icons/role_healer.png"
+
 const AttendeeList = ({ attendees }) => {
   const signUps = {
     priests: [],
@@ -51,6 +55,15 @@ const AttendeeList = ({ attendees }) => {
     return s.charAt(0).toUpperCase() + s.slice(1)
   }
 
+  const getRoleImg = wowRole => {
+
+    if (wowRole == "Tank") return imgTank;
+    if (wowRole == "DPS") return imgDPS;
+    if (wowRole == "Healer") return imgHealer;
+
+    return false;
+  }
+
   const printClass = classToRender => {
     return (
       <div>
@@ -58,7 +71,7 @@ const AttendeeList = ({ attendees }) => {
           return (
             <div key={players.name}>
               <li>
-                {capitalize(players.name.toLowerCase())} - {players.talents}
+                <img className="role-image" src={getRoleImg(players.talents)} /> {capitalize(players.name.toLowerCase())}
               </li>
             </div>
           )

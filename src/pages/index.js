@@ -4,6 +4,7 @@ import { jsx } from "theme-ui"
 import FormModal from "../components/FormModal"
 import { useState, useCallback } from "react"
 import { auth } from "gatsby-theme-firebase"
+import MainHeader from "../components/utils/MainHeader"
 
 const LandingPage = () => {
   const [password, setPassword] = useState("")
@@ -45,9 +46,7 @@ const LandingPage = () => {
 
   return (
     <div>
-      <div className="main-header">
-        <h1>&lt;EzClap&gt; Event Planner</h1>
-      </div>
+      <MainHeader>&lt;EzClap&gt; Event&nbsp;Planner</MainHeader>
       <div className="content-wrapper login-form">
         <div
           className="tab-name tab-name-selected"

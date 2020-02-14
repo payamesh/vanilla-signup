@@ -17,6 +17,10 @@ const CharForRaid = ({ setSelectedChar }) => {
     }
   })
 
+  const getClassColor = wowClass => {
+    return "text-" + wowClass.toLowerCase()
+  }
+
   useEffect(() => {
     firestore
       .collection("profile")
@@ -33,14 +37,14 @@ const CharForRaid = ({ setSelectedChar }) => {
   }, [currentUser])
   return (
     <select
-      className="input-default"
+      className="input-default input-dark"
       onChange={e => setSelectedChar(e.target.value)}
     >
       <option selected hidden>
         Select a character
       </option>
       {characters.map(c => {
-        return <option key={c.name}>{c.name}</option>
+        return <option className={getClassColor(c.class)} key={c.name}>{c.name}</option>
       })}
     </select>
   )

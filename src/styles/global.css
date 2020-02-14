@@ -101,9 +101,14 @@ a, a:hover, a:focus, a:visited {
 
 /* Default header styles */
 
+.main-header {
+  padding: 30px 5px;
+  background: linear-gradient(#222, #181818);
+}
+
 .main-header h1 {
   cursor: default;
-  margin: 30px 5px;
+  margin: 0;
   color: #ccc;
   text-align: center;
   font-size: 40px;
@@ -111,9 +116,13 @@ a, a:hover, a:focus, a:visited {
   transition: .3s;
 }
 
-.main-header h2 {
+.secondary-header {
+  padding: 30px 5px 15px 5px;
+}
+
+.secondary-header h2 {
   cursor: default;
-  margin: 30px 5px;
+  margin: 0;
   color: #ccc;
   text-align: center;
   font-size: 30px;
@@ -122,12 +131,13 @@ a, a:hover, a:focus, a:visited {
 }
 
 @media (max-width: 767px) {
+  .main-header {
+    padding: 20px 5px;
+  }
   .main-header h1 {
-    margin: 20px 5px;
     font-size: 26px;
   }
-  .main-header h2 {
-    margin: 20px 5px;
+  .secondary-header h2 {
     font-size: 22px;
   }
 }
@@ -155,6 +165,7 @@ a, a:hover, a:focus, a:visited {
 }
 
 .primary-button:hover {
+  border-color: lightgreen;
   background: lightgreen;
 }
 
@@ -178,6 +189,7 @@ a, a:hover, a:focus, a:visited {
 }
 
 .secondary-button:hover {
+  border-color: salmon;
   background: salmon;
 }
 
@@ -274,6 +286,27 @@ a, a:hover, a:focus, a:visited {
   margin-bottom: 15px;
 }
 
+.form-modal-inner-container {
+  width: 100%;
+  text-align: center;
+}
+
+.form-modal-inner-container p {
+  font-size: 18px;
+}
+
+@media (max-width: 767px) {
+  .form-modal-inner-container p {
+    font-size: 16px;
+  }
+}
+
+.form-modal-error-msg {
+  color: salmon;
+  /*color: rgba(255, 0, 0, .8);*/
+  letter-spacing: .03em;
+}
+
 
 /* Dashboard */
 
@@ -336,6 +369,17 @@ a, a:hover, a:focus, a:visited {
     padding: 2px 3px;
     font-size: 14px;
   }
+}
+
+.characters-table td:nth-child(3) {
+  padding-top: 0;
+}
+
+.characters-table .role-icon {
+  display: inline;
+  width: 28px;
+  height: 28px;
+  transform: translateY(6px);
 }
 
 .character-add-form {
@@ -431,16 +475,27 @@ a, a:hover, a:focus, a:visited {
 }
 
 .attendee-list li {
+  max-height: 30px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   list-style-type: none;
-  padding-bottom: 5px;
   margin-bottom: 5px;
   border-radius: 5px;
   border-bottom: 1px solid rgba(255,255,255,.3);
   background: rgba(255,255,255,.1);
+  line-height: 30px;
 }
 
 .attendee-list li:last-child {
   border-bottom: none;
+}
+
+.attendee-list li .role-image {
+  float: left;
+  width: 30px;
+  height: 30px;
+  background: rgba(255,255,255,.1);
 }
 
 @media (max-width: 1200px) {

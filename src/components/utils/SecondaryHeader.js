@@ -4,20 +4,10 @@ import { jsx } from "theme-ui"
 
 const SecondaryHeader = ({ children }) => {
   return (
-    <div>
-      <h1
-        sx={{
-          cursor: "default",
-          margin: ["20px 5px", "30px 5px"],
-          color: "#ccc",
-          textAlign: "center",
-          fontSize: ["22px", "30px"],
-          letterSpacing: ".03em",
-          transition: ".3s",
-        }}
-      >
+    <div className="secondary-header">
+      <h2>
         {children}
-      </h1>
+      </h2>
     </div>
   )
 }
