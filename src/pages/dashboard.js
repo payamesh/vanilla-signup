@@ -154,6 +154,9 @@ const Dashboard = () => {
         <SecondaryHeader>Event Management</SecondaryHeader>
       ) : null}
       {thisUser.uid === "1SzPu4S0vrSw4Go0eMbdsN7bQkT2" ? <CreateEvent /> : null}
+
+      <SecondaryHeader>Event Management</SecondaryHeader>
+      <CreateEvent />
     </div>
   )
 }

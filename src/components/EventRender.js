@@ -11,6 +11,13 @@ import PrimaryButton from "./PrimaryButton"
 import SecondaryButton from "./SecondaryButton"
 import CharForRaid from "./utils/CharForRaid"
 
+import mcImg from "../img/events/mc.jpg"
+import bwlImg from "../img/events/bwl.jpg"
+import aq40Img from "../img/events/aq40.jpg"
+import naxxImg from "../img/events/naxx.jpg"
+import aq20Img from "../img/events/aq20.jpg"
+import zgImg from "../img/events/zg.jpg"
+
 const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
   let addedChar = []
   const [successMsg, setSuccessMsg] = useState("")
@@ -114,6 +121,24 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
       setEvent(eventList)
     })
   }, [])
+
+  const eventBackgroundImg = eventName => {
+
+    let src = "";
+
+    if (eventName == "Molten Core") src = mcImg;
+    else if (eventName == "Blackwing Lair") src = bwlImg;
+    else if (eventName == "Temple of Ahn'Qiraj") src = aq40Img;
+    else if (eventName == "Naxxramas") src = naxxImg;
+    else if (eventName == "Zul'Gurub") src = zgImg;
+    else if (eventName == "Ruins of Ahn'Qiraj") src = aq20Img;
+
+    return {
+      image: <img src={src} />,
+      imgsrc: src 
+    }
+  }
+
   return (
     <div className="content-wrapper-wide">
       {events.map(event => {
@@ -131,10 +156,10 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
           <BackgroundImage
             style={{
               marginBottom: "50px",
-              borderRadius: "5px",
+              backgroundImage: "url(" + eventBackgroundImg(event.title).imgsrc + ")"
             }}
             key={event.date}
-            fluid={event.title == "Molten Core" ? ragImg : nefImg}
+            fluid={eventBackgroundImg(event.title).image}
           >
             <div
               sx={{

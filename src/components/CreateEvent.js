@@ -61,20 +61,21 @@ const CreateEvent = () => {
             onChange={event => setDate(event)}
             selected={date}
             value={date}
-            dateFormat="MMMM Do yyyy, h:mm:ss"
+            dateFormat="dd/MM/yyyy, hh:mm:ss"
           />
           <br />
           <select
             className="input-default input-dark"
             name="title"
-            placeholder="Molten Core / BWL"
-            onChange={event => setTitle(event.target.value)}
+            onChange={event => setTitle(event.target.value.substring(5))}
           >
-            <option>Select a raid</option>
-            <option>Molten Core</option>
-            <option>Blackwing Lair</option>
-            <option>Temple of Ahn'Qiraj</option>
-            <option>Naxxramas</option>
+            <option selected disabled hidden>Select a raid</option>
+            <option>[20] Zul'Gurub</option>
+            <option>[20] Ruins of Ahn'Qiraj</option>
+            <option>[40] Molten Core</option>
+            <option>[40] Blackwing Lair</option>
+            <option>[40] Temple of Ahn'Qiraj</option>
+            <option>[40] Naxxramas</option>
           </select>
           <br />
           <textarea
