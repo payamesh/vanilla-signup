@@ -59,6 +59,11 @@ const Dashboard = () => {
       })
   }
 
+  const toggleContentBlock = event => {
+    let contentBlock = event.currentTarget.parentElement.parentElement.parentElement;
+    contentBlock.classList.toggle("content-block-collapsed");
+  }
+
   return (
     <div>
       {!thisUser.emailVerified && (
@@ -94,69 +99,103 @@ const Dashboard = () => {
       {thisUser.emailVerified && (
         <div>
           <MainHeader>Dashboard</MainHeader>
-          <SecondaryHeader>Character Management</SecondaryHeader>
-          <div className="content-wrapper-wide">
-            <div
-              sx={{
-                position: ["absolute"],
-                top: ["100%", "10px"],
-                right: ["50%", "10px"],
-                transform: ["translateX(50%)", "none"],
+
+          // Sign Out button
+
+          <div
+            sx={{
+              position: ["absolute"],
+              top: ["100%", "10px"],
+              right: ["50%", "10px"],
+              transform: ["translateX(50%)", "none"],
+            }}
+          >
+            <SecondaryButton
+              style={{
+                ":hover": {
+                  cursor: "pointer",
+                },
               }}
+              onClick={() => auth.signOut()}
             >
-              <SecondaryButton
-                style={{
-                  ":hover": {
-                    cursor: "pointer",
-                  },
-                }}
-                onClick={() => auth.signOut()}
-              >
-                Sign Out
-              </SecondaryButton>
-            </div>
-            <div className="management-block">
-              <div>
-                <CharacterList
-                  setSelectedChar={setSelectedChar}
-                  selectedChar={selectedChar}
-                  showDelete={true}
-                />
+              Sign Out
+            </SecondaryButton>
+          </div>
+
+          // Characters block
+
+          <div className="content-block content-block-collapsed">
+            <SecondaryHeader>
+              <div className="secondary-header-clickable" onClick={toggleContentBlock}>
+                <span>Your Characters</span>
+                <span className="content-block-caret">&#9660;</span>
               </div>
-              <form className="character-add-form" method="POST">
+             </SecondaryHeader>
+            <div className="content-wrapper-wide">
+              <div className="management-block">
                 <div>
-                  <PrimaryButton
-                    onClick={e => {
-                      e.preventDefault()
-                      onToggleCharacter()
-                    }}
-                  >
-                    Add a character
-                  </PrimaryButton>
+                  <CharacterList
+                    setSelectedChar={setSelectedChar}
+                    selectedChar={selectedChar}
+                    showDelete={true}
+                  />
                 </div>
-                <SpecRenderer
-                  createCharacter={createCharacter}
-                  profile={profile}
-                />
-              </form>
+                <form className="character-add-form" method="POST">
+                  <div>
+                    <PrimaryButton
+                      onClick={e => {
+                        e.preventDefault()
+                        onToggleCharacter()
+                      }}
+                    >
+                      Add a character
+                    </PrimaryButton>
+                  </div>
+                  <SpecRenderer
+                    createCharacter={createCharacter}
+                    profile={profile}
+                  />
+                </form>
+              </div>
             </div>
           </div>
-          <SecondaryHeader>Upcoming Events</SecondaryHeader>
-          <EventRender
-            selectedChar={selectedChar}
-            setSelectedChar={setSelectedChar}
-            ragImg={ragImg}
-            nefImg={nefImg}
-          />
+
+          // Upcoming Events block
+
+          <div className="content-block content-block-collapsed">
+            <SecondaryHeader>
+              <div className="secondary-header-clickable" onClick={toggleContentBlock}>
+                <span>Upcuming Events</span>
+                <span className="content-block-caret">&#9660;</span>
+              </div>
+            </SecondaryHeader>
+            <EventRender
+              selectedChar={selectedChar}
+              setSelectedChar={setSelectedChar}
+              ragImg={ragImg}
+              nefImg={nefImg}
+            />
+          </div>
         </div>
       )}
+
+      // Event management block
+
       {thisUser.uid === "1SzPu4S0vrSw4Go0eMbdsN7bQkT2" ? (
         <SecondaryHeader>Event Management</SecondaryHeader>
       ) : null}
       {thisUser.uid === "1SzPu4S0vrSw4Go0eMbdsN7bQkT2" ? <CreateEvent /> : null}
 
-      <SecondaryHeader>Event Management</SecondaryHeader>
+      <div className="content-block content-block-collapsed">
+
+        <SecondaryHeader>
+          <div className="secondary-header-clickable" onClick={toggleContentBlock}>
+            <span>Event Management</span>
+            <span className="content-block-caret">&#9660;</span>
+          </div>
+        </SecondaryHeader>
       <CreateEvent />
+      </div>
     </div>
   )
 }
