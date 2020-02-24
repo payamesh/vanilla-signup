@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import { jsx } from "theme-ui"
-import { auth, useAuth, firebase } from "gatsby-theme-firebase"
+import { firebase } from "gatsby-theme-firebase"
 import { useState, useCallback } from "react"
 import PrimaryButton from "./PrimaryButton"
 
@@ -14,7 +14,6 @@ const FormModal = ({
   btnText,
   msg,
 }) => {
-  const { isLoggedIn } = useAuth()
   const [isVerified, setVerified] = useState(false)
   firebase.auth().onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
@@ -48,6 +47,11 @@ const FormModal = ({
               type="password"
               placeholder="password"
               onBlur={event => setPassword(event.target.value)}
+              onKeyPress={e => {
+                if (e.key === "Enter") {
+                  myFunc(email, password)
+                }
+              }}
             />
             <div className="form-modal-inner-container">
               <PrimaryButton

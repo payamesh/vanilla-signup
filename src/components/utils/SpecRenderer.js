@@ -7,15 +7,15 @@ import { firestore } from "gatsby-theme-firebase"
 import PrimaryButton from "../PrimaryButton"
 import SecondaryButton from "../SecondaryButton"
 
-const SpecRenderer = ({ profile, createCharacter }) => {
+const SpecRenderer = ({ profile, createCharacter, setCreateCharacter, renderCreate }) => {
   const [name, setName] = useState("")
   const [vocation, setVocation] = useState("")
   const [spec, setSpec] = useState("")
   const [errorMsg, setErrorMsg] = useState("")
   const [successMsg, setSuccessMsg] = useState("")
 
-  const getClassColor = (wowClass) => {
-    return ("text-" + wowClass.toLowerCase())
+  const getClassColor = wowClass => {
+    return "text-" + wowClass.toLowerCase()
   }
 
   const specList = vocation => {
@@ -66,10 +66,12 @@ const SpecRenderer = ({ profile, createCharacter }) => {
   const classList = (
     <span>
       <select
-        className="input-default input-smaller input-dark" 
+        className="input-default input-smaller input-dark"
         onChange={event => {
           setVocation(event.target.value)
-          event.target.className = "input-default input-smaller input-dark " + getClassColor(event.target.value)
+          event.target.className =
+            "input-default input-smaller input-dark " +
+            getClassColor(event.target.value)
         }}
       >
         <option defaultValue hidden>
@@ -145,6 +147,7 @@ const SpecRenderer = ({ profile, createCharacter }) => {
             } else {
               handleSubmit(name, vocation, spec)
               setSuccessMsg("Character created!")
+              renderCreate()
               setTimeout(() => {
                 setSuccessMsg("")
               }, 3000)
@@ -154,8 +157,9 @@ const SpecRenderer = ({ profile, createCharacter }) => {
           Add
         </PrimaryButton>
         <SecondaryButton
-          onClick={() => {
+          onClick={e => {
             e.preventDefault()
+            renderCreate()
           }}
         >
           Cancel

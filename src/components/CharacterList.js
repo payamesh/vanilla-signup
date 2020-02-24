@@ -50,12 +50,15 @@ const CharacterList = () => {
   }
 
   const getRoleImg = wowRole => {
+    if (wowRole == "Tank") return imgTank
+    if (wowRole == "DPS") return imgDPS
+    if (wowRole == "Healer") return imgHealer
 
-    if (wowRole == "Tank") return imgTank;
-    if (wowRole == "DPS") return imgDPS;
-    if (wowRole == "Healer") return imgHealer;
-
-    return false;
+    return false
+  }
+  const r = () => window.confirm("Do you really want to Sign Out?")
+  if (r == true) {
+    DeleteCharacter(c.name)
   }
 
   return (
@@ -78,7 +81,8 @@ const CharacterList = () => {
                   {c.class}
                 </td>
                 <td key={c.talents} className="small-screen-hidden">
-                  <img className="role-icon" src={getRoleImg(c.talents)} /> {c.talents}
+                  <img className="role-icon" src={getRoleImg(c.talents)} />{" "}
+                  {c.talents}
                 </td>
                 <td>
                   <PrimaryButton onClick={() => updateCharacter()}>
@@ -86,6 +90,18 @@ const CharacterList = () => {
                   </PrimaryButton>
                   <SecondaryButton onClick={() => DeleteCharacter(c.name)}>
                     Delete
+                  </SecondaryButton>
+                  <SecondaryButton
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          "Are you sure you wish to delete this item?"
+                        )
+                      )
+                        DeleteCharacter(c.name)
+                    }}
+                  >
+                    Delete2
                   </SecondaryButton>
                 </td>
               </tr>

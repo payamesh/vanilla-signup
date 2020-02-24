@@ -56,12 +56,11 @@ const AttendeeList = ({ attendees }) => {
   }
 
   const getRoleImg = wowRole => {
+    if (wowRole == "Tank") return imgTank
+    if (wowRole == "DPS") return imgDPS
+    if (wowRole == "Healer") return imgHealer
 
-    if (wowRole == "Tank") return imgTank;
-    if (wowRole == "DPS") return imgDPS;
-    if (wowRole == "Healer") return imgHealer;
-
-    return false;
+    return false
   }
 
   const printClass = classToRender => {
@@ -71,7 +70,8 @@ const AttendeeList = ({ attendees }) => {
           return (
             <div key={players.name}>
               <li>
-                <img className="role-image" src={getRoleImg(players.talents)} /> {capitalize(players.name.toLowerCase())}
+                <img className="role-image" src={getRoleImg(players.talents)} />{" "}
+                {capitalize(players.name.toLowerCase())}
               </li>
             </div>
           )

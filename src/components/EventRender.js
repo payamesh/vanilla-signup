@@ -123,19 +123,18 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
   }, [])
 
   const eventBackgroundImg = eventName => {
+    let src = ""
 
-    let src = "";
-
-    if (eventName == "Molten Core") src = mcImg;
-    else if (eventName == "Blackwing Lair") src = bwlImg;
-    else if (eventName == "Temple of Ahn'Qiraj") src = aq40Img;
-    else if (eventName == "Naxxramas") src = naxxImg;
-    else if (eventName == "Zul'Gurub") src = zgImg;
-    else if (eventName == "Ruins of Ahn'Qiraj") src = aq20Img;
+    if (eventName == "Molten Core") src = mcImg
+    else if (eventName == "Blackwing Lair") src = bwlImg
+    else if (eventName == "Temple of Ahn'Qiraj") src = aq40Img
+    else if (eventName == "Naxxramas") src = naxxImg
+    else if (eventName == "Zul'Gurub") src = zgImg
+    else if (eventName == "Ruins of Ahn'Qiraj") src = aq20Img
 
     return {
       image: <img src={src} />,
-      imgsrc: src 
+      imgsrc: src,
     }
   }
 
@@ -156,7 +155,8 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
           <BackgroundImage
             style={{
               marginBottom: "50px",
-              backgroundImage: "url(" + eventBackgroundImg(event.title).imgsrc + ")"
+              backgroundImage:
+                "url(" + eventBackgroundImg(event.title).imgsrc + ")",
             }}
             key={event.date}
             fluid={eventBackgroundImg(event.title).image}
@@ -172,41 +172,35 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
                 eventDate={eventDate}
                 eventTime={eventTime}
                 eventComment={event.comment}
-              />{" "}
-              <AttendeeList attendees={event.attendees} />{" "}
+              />
+              <AttendeeList attendees={event.attendees} />
               <div className="event-controls">
-                <CharForRaid setSelectedChar={setSelectedChar} />{" "}
+                <CharForRaid setSelectedChar={setSelectedChar} />
                 <PrimaryButton
                   onClick={() => signToRaid(selectedChar, event.eventID)}
                 >
-                  Sign Up{" "}
-                </PrimaryButton>{" "}
-                <SecondaryButton
-                  onClick={() => signToRaid(selectedChar, event.eventID)}
-                >
-                  Remove{" "}
-                </SecondaryButton>{" "}
+                  Sign Up / Remove
+                </PrimaryButton>
+
                 <p
                   sx={{
                     color: "#bb2124",
                   }}
                 >
-                  {" "}
-                  {errorMsg}{" "}
-                </p>{" "}
+                  {errorMsg}
+                </p>
                 <p
                   sx={{
                     color: "#22bb33",
                   }}
                 >
-                  {" "}
-                  {successMsg}{" "}
-                </p>{" "}
-              </div>{" "}
-            </div>{" "}
+                  {successMsg}
+                </p>
+              </div>
+            </div>
           </BackgroundImage>
         )
-      })}{" "}
+      })}
     </div>
   )
 }

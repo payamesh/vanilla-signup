@@ -60,8 +60,9 @@ const Dashboard = () => {
   }
 
   const toggleContentBlock = event => {
-    let contentBlock = event.currentTarget.parentElement.parentElement.parentElement;
-    contentBlock.classList.toggle("content-block-collapsed");
+    let contentBlock =
+      event.currentTarget.parentElement.parentElement.parentElement
+    contentBlock.classList.toggle("content-block-collapsed")
   }
 
   return (
@@ -99,9 +100,7 @@ const Dashboard = () => {
       {thisUser.emailVerified && (
         <div>
           <MainHeader>Dashboard</MainHeader>
-
           // Sign Out button
-
           <div
             sx={{
               position: ["absolute"],
@@ -121,16 +120,17 @@ const Dashboard = () => {
               Sign Out
             </SecondaryButton>
           </div>
-
           // Characters block
-
           <div className="content-block content-block-collapsed">
             <SecondaryHeader>
-              <div className="secondary-header-clickable" onClick={toggleContentBlock}>
+              <div
+                className="secondary-header-clickable"
+                onClick={toggleContentBlock}
+              >
                 <span>Your Characters</span>
                 <span className="content-block-caret">&#9660;</span>
               </div>
-             </SecondaryHeader>
+            </SecondaryHeader>
             <div className="content-wrapper-wide">
               <div className="management-block">
                 <div>
@@ -141,7 +141,7 @@ const Dashboard = () => {
                   />
                 </div>
                 <form className="character-add-form" method="POST">
-                  <div>
+                  <div sx={{ display: createCharacter ? "none" : "block" }}>
                     <PrimaryButton
                       onClick={e => {
                         e.preventDefault()
@@ -154,18 +154,21 @@ const Dashboard = () => {
                   <SpecRenderer
                     createCharacter={createCharacter}
                     profile={profile}
+                    renderCreate={onToggleCharacter}
+                    setCreateCharacter={setCreateCharacter}
                   />
                 </form>
               </div>
             </div>
           </div>
-
           // Upcoming Events block
-
           <div className="content-block content-block-collapsed">
             <SecondaryHeader>
-              <div className="secondary-header-clickable" onClick={toggleContentBlock}>
-                <span>Upcuming Events</span>
+              <div
+                className="secondary-header-clickable"
+                onClick={toggleContentBlock}
+              >
+                <span>Upcoming Events</span>
                 <span className="content-block-caret">&#9660;</span>
               </div>
             </SecondaryHeader>
@@ -178,24 +181,21 @@ const Dashboard = () => {
           </div>
         </div>
       )}
-
       // Event management block
-
       {thisUser.uid === "1SzPu4S0vrSw4Go0eMbdsN7bQkT2" ? (
-        <SecondaryHeader>Event Management</SecondaryHeader>
+        <div className="content-block content-block-collapsed">
+          <SecondaryHeader>
+            <div
+              className="secondary-header-clickable"
+              onClick={toggleContentBlock}
+            >
+              <span>Event Management</span>
+              <span className="content-block-caret">&#9660;</span>
+            </div>
+          </SecondaryHeader>
+          <CreateEvent />
+        </div>
       ) : null}
-      {thisUser.uid === "1SzPu4S0vrSw4Go0eMbdsN7bQkT2" ? <CreateEvent /> : null}
-
-      <div className="content-block content-block-collapsed">
-
-        <SecondaryHeader>
-          <div className="secondary-header-clickable" onClick={toggleContentBlock}>
-            <span>Event Management</span>
-            <span className="content-block-caret">&#9660;</span>
-          </div>
-        </SecondaryHeader>
-      <CreateEvent />
-      </div>
     </div>
   )
 }

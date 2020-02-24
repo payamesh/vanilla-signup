@@ -3,14 +3,35 @@
 import { jsx } from "theme-ui"
 import FormModal from "../components/FormModal"
 import { useState, useCallback } from "react"
-import { auth } from "gatsby-theme-firebase"
 import MainHeader from "../components/utils/MainHeader"
+import { auth } from "gatsby-theme-firebase"
+import PrimaryButton from "../components/PrimaryButton"
 
 const LandingPage = () => {
   const [password, setPassword] = useState("")
   const [email, setEmail] = useState("")
+  const [resetEmail, setResetEmail] = useState("")
   const [loginMsg, setLoginMsg] = useState("")
   const [signupMsg, setSignupMsg] = useState("")
+  const [successMsg, setSuccessMsg] = useState("")
+  const [resetClicked, setResetClicked] = useState(false)
+  const onToggleReset = () => setResetClicked(!resetClicked)
+
+  const resetPassword = useCallback(
+    resetEmail => {
+      auth
+        .sendPasswordResetEmail(resetEmail)
+        .then(function() {
+          // Email sent.
+          setSuccessMsg("Email sent")
+          onToggleReset()
+        })
+        .catch(function(error) {
+          // An error happened.
+        })
+    },
+    [resetEmail]
+  )
   const handleLogin = useCallback(
     (email, password) => {
       const promise = auth.signInWithEmailAndPassword(email, password)
@@ -83,6 +104,31 @@ const LandingPage = () => {
             msg={signupMsg}
             btnText="Sign Up"
           />
+        </div>
+        <button
+          onClick={e => {
+            e.preventDefault()
+            onToggleReset()
+          }}
+        >
+          Forgot password?
+        </button>
+        <p sx={{ color: "green" }}>{successMsg}</p>
+        <div sx={{ display: resetClicked ? "block" : "none" }}>
+          <input
+            className="input-default"
+            type="username"
+            placeholder="email"
+            onBlur={event => setResetEmail(event.target.value)}
+          />
+          <PrimaryButton
+            onClick={e => {
+              e.preventDefault()
+              resetPassword(resetEmail)
+            }}
+          >
+            Send password reset email
+          </PrimaryButton>
         </div>
       </div>
     </div>
