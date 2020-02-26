@@ -56,10 +56,6 @@ const CharacterList = () => {
 
     return false
   }
-  const r = () => window.confirm("Do you really want to Sign Out?")
-  if (r == true) {
-    DeleteCharacter(c.name)
-  }
 
   return (
     <div>
@@ -88,9 +84,7 @@ const CharacterList = () => {
                   <PrimaryButton onClick={() => updateCharacter()}>
                     Edit
                   </PrimaryButton>
-                  <SecondaryButton onClick={() => DeleteCharacter(c.name)}>
-                    Delete
-                  </SecondaryButton>
+            
                   <SecondaryButton
                     onClick={() => {
                       if (
@@ -101,7 +95,7 @@ const CharacterList = () => {
                         DeleteCharacter(c.name)
                     }}
                   >
-                    Delete2
+                    Delete
                   </SecondaryButton>
                 </td>
               </tr>
