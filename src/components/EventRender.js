@@ -1,14 +1,13 @@
 /** @jsx jsx */
 
 import { jsx } from "theme-ui"
-import { firestore, firebase } from "gatsby-theme-firebase"
+import { firestore } from "gatsby-theme-firebase"
 import { useState, useEffect, useCallback } from "react"
 import BackgroundImage from "gatsby-background-image"
 import { PropTypes } from "prop-types"
 import AttendeeList from "./AttendeeList"
 import EventInfo from "./EventInfo"
 import PrimaryButton from "./PrimaryButton"
-import SecondaryButton from "./SecondaryButton"
 import CharForRaid from "./utils/CharForRaid"
 
 import mcImg from "../img/events/mc.jpg"
@@ -18,7 +17,7 @@ import naxxImg from "../img/events/naxx.jpg"
 import aq20Img from "../img/events/aq20.jpg"
 import zgImg from "../img/events/zg.jpg"
 
-const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
+const EventRender = ({ selectedChar, setSelectedChar }) => {
   let addedChar = []
   const [successMsg, setSuccessMsg] = useState("")
   const [errorMsg, setErrorMsg] = useState("")
@@ -71,15 +70,6 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
                             merge: true,
                           }
                         )
-                        // .update({
-                        //   attendees: firebase.firestore.FieldValue.arrayUnion(
-                        //     {
-                        //       name: addedChar.name,
-                        //       class: addedChar.class,
-                        //       talents: addedChar.talents,
-                        //     }
-                        //   ),
-                        // })
                         .then(() => {
                           setSuccessMsg("Character added to raid.")
                           setTimeout(() => {
@@ -173,6 +163,7 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
                 eventTime={eventTime}
                 eventComment={event.comment}
               />
+              <p sx={{ color: "white" }}>{event.eventID}</p>
               <AttendeeList attendees={event.attendees} />
               <div className="event-controls">
                 <CharForRaid setSelectedChar={setSelectedChar} />
@@ -205,8 +196,6 @@ const EventRender = ({ ragImg, nefImg, selectedChar, setSelectedChar }) => {
   )
 }
 EventRender.propTypes = {
-  ragImg: PropTypes.object.isRequired,
-  nefImg: PropTypes.object.isRequired,
   selectedChar: PropTypes.array.isRequired,
   setSelectedChar: PropTypes.func.isRequired,
 }

@@ -77,14 +77,13 @@ const CharacterList = () => {
                   {c.class}
                 </td>
                 <td key={c.talents} className="small-screen-hidden">
-                  <img className="role-icon" src={getRoleImg(c.talents)} />{" "}
+                  <img className="role-icon" src={getRoleImg(c.talents)} />
                   {c.talents}
                 </td>
                 <td>
                   <PrimaryButton onClick={() => updateCharacter()}>
                     Edit
                   </PrimaryButton>
-            
                   <SecondaryButton
                     onClick={() => {
                       if (
