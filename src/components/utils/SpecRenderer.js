@@ -5,45 +5,54 @@ import { useState, useCallback } from "react"
 import { PropTypes } from "prop-types"
 import { firestore } from "gatsby-theme-firebase"
 import PrimaryButton from "../PrimaryButton"
+import SecondaryButton from "../SecondaryButton"
 
-const SpecRenderer = ({ profile, createCharacter }) => {
+const SpecRenderer = ({ profile, createCharacter, setCreateCharacter, renderCreate }) => {
   const [name, setName] = useState("")
   const [vocation, setVocation] = useState("")
   const [spec, setSpec] = useState("")
   const [errorMsg, setErrorMsg] = useState("")
   const [successMsg, setSuccessMsg] = useState("")
 
-  const specList = vocation => {
+  const getClassColor = wowClass => {
+    return "text-" + wowClass.toLowerCase()
+  }
 
+  const specList = vocation => {
     const generateSpecsArray = wowClass => {
       switch (wowClass) {
         case "Druid":
-          return ({dps: true, tank: true, healer: true})
+          return { dps: true, tank: true, healer: true }
         case "Hunter":
-          return ({dps: true, tank: false, healer: false})
+          return { dps: true, tank: false, healer: false }
         case "Mage":
-          return ({dps: true, tank: false, healer: false})
+          return { dps: true, tank: false, healer: false }
         case "Paladin":
-          return ({dps: true, tank: true, healer: true})
+          return { dps: true, tank: true, healer: true }
         case "Priest":
-          return ({dps: true, tank: false, healer: true})
+          return { dps: true, tank: false, healer: true }
         case "Rogue":
-          return ({dps: true, tank: false, healer: false})
+          return { dps: true, tank: false, healer: false }
         case "Warlock":
-          return ({dps: true, tank: false, healer: false})
+          return { dps: true, tank: false, healer: false }
         case "Warrior":
-          return ({dps: true, tank: true, healer: false})
+          return { dps: true, tank: true, healer: false }
         default:
-          return ({dps: false, tank: false, healer: false})
+          return { dps: false, tank: false, healer: false }
       }
     }
 
     const generateSelectInterface = specsArray => {
-      if (!specsArray.dps) return false;
+      if (!specsArray.dps) return false
       return (
         <span>
-          <select className="list-default" onChange={event => setSpec(event.target.value)}>
-            <option defaultValue hidden>Choose your role</option>
+          <select
+            className="input-default input-smaller input-dark"
+            onChange={event => setSpec(event.target.value)}
+          >
+            <option defaultValue hidden>
+              Choose your role
+            </option>
             {specsArray.dps ? <option>DPS</option> : ""}
             {specsArray.tank ? <option>Tank</option> : ""}
             {specsArray.healer ? <option>Healer</option> : ""}
@@ -52,17 +61,22 @@ const SpecRenderer = ({ profile, createCharacter }) => {
       )
     }
 
-    return generateSelectInterface(generateSpecsArray(vocation));
+    return generateSelectInterface(generateSpecsArray(vocation))
   }
   const classList = (
     <span>
-      <select 
-        className="list-default"
+      <select
+        className="input-default input-smaller input-dark"
         onChange={event => {
           setVocation(event.target.value)
+          event.target.className =
+            "input-default input-smaller input-dark " +
+            getClassColor(event.target.value)
         }}
       >
-        <option defaultValue hidden>Select your class</option>
+        <option defaultValue hidden>
+          Select your class
+        </option>
         <option className="text-druid">Druid</option>
         <option className="text-hunter">Hunter</option>
         <option className="text-mage">Mage</option>
@@ -112,7 +126,8 @@ const SpecRenderer = ({ profile, createCharacter }) => {
   return (
     <div sx={{ display: createCharacter ? "block" : "none" }}>
       <span>
-        <input className="input-default"
+        <input
+          className="input-default input-smaller"
           placeholder="Character name"
           onChange={event => setName(event.target.value)}
         />
@@ -132,17 +147,23 @@ const SpecRenderer = ({ profile, createCharacter }) => {
             } else {
               handleSubmit(name, vocation, spec)
               setSuccessMsg("Character created!")
+              renderCreate()
               setTimeout(() => {
-                window.location.reload()
+                setSuccessMsg("")
               }, 3000)
             }
           }}
         >
           Add
         </PrimaryButton>
-        <PrimaryButton
-         onClick={() => {e.preventDefault();}}>Cancel
-        </PrimaryButton>
+        <SecondaryButton
+          onClick={e => {
+            e.preventDefault()
+            renderCreate()
+          }}
+        >
+          Cancel
+        </SecondaryButton>
       </div>
       <p sx={{ color: "#bb2124" }}>{errorMsg}</p>
       <p sx={{ color: "#22bb33" }}>{successMsg}</p>
